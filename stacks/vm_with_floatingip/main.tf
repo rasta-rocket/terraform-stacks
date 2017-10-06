@@ -10,7 +10,7 @@ module "vm_with_single_network" {
 }
 
 resource "openstack_networking_floatingip_v2" "fip" {
-	pool = "public"
+	pool = "${var.pool}"
 	count = "${var.count}"
 }
 
