@@ -6,5 +6,6 @@ module "vm_with_floatingip" {
 	key_pair = "${var.key_pair}"
 	network_name = "${var.network_name}"
 	cidr = "${var.cidr}"
-        count = "${var.count}"
+	pool ="${var.pool}"
+	count = "${var.count}"
 }
