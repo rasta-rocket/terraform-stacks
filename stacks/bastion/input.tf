@@ -11,10 +11,10 @@ variable pool {
 	default = "public"
 }
 variable network_name {
-        default = "bastion_net"
+        default = "bastion_net_tf"
 }
 variable cidr {
-        default = "192.168.10.0/24"
+        default = "192.168.1.0/24"
 }
 
 # Count
