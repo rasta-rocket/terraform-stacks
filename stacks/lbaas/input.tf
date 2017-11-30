@@ -1,26 +1,17 @@
-# Compute
-variable instance_name {}
-variable image_name {}
-variable flavor_name {}
-variable key_pair {}
+# Members
+variable members_ip {
+	type = "list"
+}
+
+variable nb_members {}
+variable members_subnet {}
 
 # Network
-variable network_name {
-	default = "net_tf"
+variable vip_network_name {
+	default = "lb_vip_net_tf"
 }
-variable cidr {
-	default = "192.168.10.0/24"
-}
-variable lb_network_name {
-	default = "lb_net_tf"
-}
-variable lb_cidr {
+variable vip_net_cidr {
 	default = "192.168.20.0/24"
-}
-
-# Count
-variable count {
-        default = "1"
 }
 
 # LBaaS
