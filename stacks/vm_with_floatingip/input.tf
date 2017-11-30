@@ -3,6 +3,9 @@ variable instance_name {}
 variable image_name {}
 variable flavor_name {}
 variable key_pair {}
+variable ansible_group {
+	default = "default"
+}
 
 # Network
 variable pool {
