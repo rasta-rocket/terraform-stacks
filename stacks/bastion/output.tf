@@ -7,3 +7,6 @@ output "ip_address" {
 output "subnet_id" {
 	value = "${module.vm_with_floatingip.subnet_id}"
 }
+output "count" {
+	value = "${var.count}"
+}
