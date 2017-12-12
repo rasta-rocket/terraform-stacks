@@ -1,5 +1,5 @@
-module "vm_with_single_network" {
-	source = "../vm_with_single_network"
+module "vm_on_one_network" {
+	source = "../vm_on_one_network"
 	instance_name = "${var.instance_name}"
 	image_name = "${var.image_name}"
 	flavor_name = "${var.flavor_name}"
@@ -17,6 +17,6 @@ resource "openstack_networking_floatingip_v2" "fip" {
 
 resource "openstack_compute_floatingip_associate_v2" "assoc_fip" {
 	floating_ip = "${element(openstack_networking_floatingip_v2.fip.*.address, count.index)}"
-	instance_id = "${element(module.vm_with_single_network.instances_id, count.index)}"
+	instance_id = "${element(module.vm_on_one_network.instance_id, count.index)}"
 	count = "${var.count}"
 }
