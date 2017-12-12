@@ -1,8 +1,0 @@
----
-
-- name: "Apache"
-  hosts: "apache"
-  become: "yes"
-  tasks:
-    - include_role:
-        name: "geerlingguy.apache"
