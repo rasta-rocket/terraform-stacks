@@ -58,8 +58,8 @@ $ ansible-playbook playbook.yml
 | key_pair      |                 | Key pair name used for SSH                   |
 | ansible_group | nginx           | Ansible Hostgroups name                      |
 | pool          | public          | Name of the pool to rertieve the floating IP |
-| network_name  | nginx_net       | Name of the network                          |
-| cidr          | 192.168.1O.0/24 | CIDR                                         |
+| network_name  | nginx_net       | Name of the internal network                 |
+| cidr          | 192.168.10.0/24 | CIDR of the internal network                 |
 | count         | 1               | Number of bastion to create                  |
 
 ## Output values
