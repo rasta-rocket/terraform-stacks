@@ -1,0 +1,8 @@
+- name: "Start nginx"
+  hosts: "nginx"
+  become: "yes"
+  tasks:
+    #    - apt:
+    #    update_cache: "yes"
+    - include_role:
+        name: "manala.nginx"
