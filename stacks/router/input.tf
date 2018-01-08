@@ -7,7 +7,7 @@ variable "network" {
   type = "list"
 }
 
-variable "count" {}
+variable "nb_network" {}
 
 variable "secgroup_ids" {
   type = "list"
