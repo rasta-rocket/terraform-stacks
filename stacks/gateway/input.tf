@@ -3,10 +3,12 @@ variable "router_name" {
   default = "router"
 }
 
-variable "network" {
+variable "subnet_ids" {
   type = "list"
 }
 
-variable "nb_network" {}
+variable "nb_subnet" {}
 
-variable "external_gateway" {}
+variable "ext_gw_net_id" {
+  default = ""
+}
