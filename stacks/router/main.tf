@@ -1,10 +1,15 @@
+data "openstack_networking_network_v2" "network" {
+  network_id = "${element(var.network_ids, count.index)}"
+  count      = "${var.nb_network}"
+}
+
 resource "openstack_networking_router_v2" "router" {
   name = "${var.router_name}"
 }
 
 resource "openstack_networking_port_v2" "port" {
-  name               = "${var.router_name}_${element(var.network, count.index)}"
-  network_id         = "${element(var.network, count.index)}"
+  name               = "${var.router_name}_${element(data.openstack_networking_network_v2.network.*.name, count.index)}"
+  network_id         = "${element(var.network_ids, count.index)}"
   security_group_ids = "${var.secgroup_ids}"
   admin_state_up     = "true"
   count              = "${var.nb_network}"

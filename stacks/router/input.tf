@@ -3,7 +3,7 @@ variable "router_name" {
   default = "router"
 }
 
-variable "network" {
+variable "network_ids" {
   type = "list"
 }
 
