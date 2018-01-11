@@ -1,6 +1,10 @@
+data "openstack_networking_network_v2" "ext_gw_network" {
+  name = "${var.ext_gw_net}"
+}
+
 resource "openstack_networking_router_v2" "router" {
   name             = "${var.router_name}"
-  external_gateway = "${var.ext_gw_net_id}"
+  external_gateway = "${data.openstack_networking_network_v2.ext_gw_network.id}"
 }
 
 resource "openstack_networking_router_interface_v2" "router_interface" {

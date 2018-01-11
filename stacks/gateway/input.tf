@@ -9,6 +9,6 @@ variable "subnet_ids" {
 
 variable "nb_subnet" {}
 
-variable "ext_gw_net_id" {
+variable "ext_gw_net" {
   default = ""
 }
