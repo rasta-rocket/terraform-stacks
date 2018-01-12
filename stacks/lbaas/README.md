@@ -34,6 +34,7 @@ $ terraform apply
 ## Output values
 | Name            | Description                                  |
 |-----------------|----------------------------------------------|
+| vip_port_id     | Port ID of the Virtual IP                    |
 | vip_subnet_id   | Subnet ID of the Virtual IP                  |
 | vip_address     | IP address of the Virtual IP                 |
 | backend_address | List of IP addresses of the members          |

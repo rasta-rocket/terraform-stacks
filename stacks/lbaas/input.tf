@@ -1,6 +1,6 @@
 # Members
 variable members_ip {
-	type = "list"
+  type = "list"
 }
 
 variable nb_members {}
@@ -8,33 +8,34 @@ variable members_subnet {}
 
 # Network
 variable vip_network_name {
-	default = "lb_vip_net_tf"
+  default = "lb_vip_net_tf"
 }
+
 variable vip_net_cidr {
-	default = "192.168.20.0/24"
+  default = "192.168.20.0/24"
 }
 
 # LBaaS
 variable lb_port {
-        default = "80"
+  default = "80"
 }
 
 variable lb_protocol {
-	default = "HTTP"
+  default = "HTTP"
 }
 
 variable lb_method {
-	default = "ROUND_ROBIN"
+  default = "ROUND_ROBIN"
 }
 
 variable lb_provider {
-	default = "haproxy"
+  default = "haproxy"
 }
 
 variable lb_pool_name {
-	default = "lb_pool_tf"
+  default = "lb_pool_tf"
 }
 
 variable lb_vip_name {
-	default = "lb_vip_tf"
+  default = "lb_vip_tf"
 }
