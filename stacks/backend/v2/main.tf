@@ -20,7 +20,7 @@ module "bastion" {
   network_name  = "${var.bastion_net}"
   cidr          = "${var.bastion_cidr}"
   pool          = "${var.external_net}"
-  count         = 1
+  count         = "1"
 }
 
 module "gateway" {
