@@ -1,0 +1,6 @@
+- name: "Start nginx"
+  hosts: "nginx"
+  become: "yes"
+  tasks:
+    - include_role:
+        name: "manala.nginx"
