@@ -48,7 +48,7 @@ variable "bastion_cidr" {
 }
 
 variable "vip_net" {
-  default = "lb_vip_net"
+  default = "backend_vip_net"
 }
 
 variable "vip_cidr" {
@@ -78,9 +78,9 @@ variable "lb_provider" {
 }
 
 variable "lb_pool_name" {
-  default = "lb_pool"
+  default = "backend_pool"
 }
 
 variable "lb_vip_name" {
-  default = "lb_vip"
+  default = "backend_vip"
 }
