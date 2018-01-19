@@ -1,5 +1,5 @@
 module "backend_v1" {
-  source                = "../../backend/v1"
+  source                = "../../../base/backend/v1"
   image_name            = "${var.image_name}"
   flavor_name           = "${var.flavor_name}"
   key_pair              = "${var.key_pair}"

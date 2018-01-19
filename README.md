@@ -8,7 +8,7 @@ Set of cloud based stacks managed with [terraform](https://www.terraform.io/).
 
 ## Dependencies
 To setup these stacks, install the following:
-* [Terraform](https://www.terraform.io/)(>=10)
+* [Terraform](https://www.terraform.io/) (>=10)
 * [Ansible](https://www.ansible.com/) (>=2.4)
 * [Terraform-Inventory](https://github.com/rasta-rocket/terraform-inventory)
 
@@ -16,25 +16,31 @@ To setup these stacks, install the following:
 Go to the stack directory and chose one use case:
 
 ```
-$ cd stacks
-$ ls
-backend
-bastion
-host_route
-lbaas
-multiple_fip
-nginx
-router
-security_group_http
-security_group_ssh_icmp
-...
+$ tree -L 2 openstack/
+openstack/
+├── base
+│   ├── backend
+│   ├── bastion
+│   ├── gateway
+│   ├── lbaas
+│   ├── lbaas_with_fip
+│   ├── multiple_fip
+│   ├── router
+│   ├── security_group_http
+│   ├── security_group_ssh_icmp
+│   ├── vm_on_one_network
+│   ├── vm_with_floatingip
+│   └── vm_with_single_network
+└── stack
+    ├── mysql
+    └── nginx
 
 ```
 
 For each stack the workflow is basically the same:
 
 ```
-$ cd nginx/v1
+$ cd openstack/stack/nginx/v1
 $ vim terraform.tfvars
 $ terraform init
 $ terraform apply

@@ -1,5 +1,5 @@
 module "backend" {
-  source        = "../../vm_with_floatingip"
+  source        = "../../../base/vm_with_floatingip"
   instance_name = "${var.instance_name}"
   image_name    = "${var.image_name}"
   flavor_name   = "${var.flavor_name}"
