@@ -11,7 +11,7 @@ variable "ansible_group" {
 
 # Network
 variable "network_name" {
-  default = "net_tf"
+  default = "net"
 }
 
 variable "cidr" {
