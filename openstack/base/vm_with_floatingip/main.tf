@@ -1,13 +1,14 @@
 module "vm_on_one_network" {
-  source        = "../vm_on_one_network"
-  instance_name = "${var.instance_name}"
-  image_name    = "${var.image_name}"
-  flavor_name   = "${var.flavor_name}"
-  key_pair      = "${var.key_pair}"
-  ansible_group = "${var.ansible_group}"
-  network_name  = "${var.network_name}"
-  cidr          = "${var.cidr}"
-  count         = "${var.count}"
+  source               = "../vm_on_one_network"
+  instance_name        = "${var.instance_name}"
+  image_name           = "${var.image_name}"
+  flavor_name          = "${var.flavor_name}"
+  key_pair             = "${var.key_pair}"
+  security_groups_list = "${var.security_groups_list}"
+  ansible_group        = "${var.ansible_group}"
+  network_name         = "${var.network_name}"
+  cidr                 = "${var.cidr}"
+  count                = "${var.count}"
 }
 
 resource "openstack_networking_floatingip_v2" "fip" {

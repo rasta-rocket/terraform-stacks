@@ -5,6 +5,11 @@ variable "image_name" {}
 variable "flavor_name" {}
 variable "key_pair" {}
 
+variable "security_groups_list" {
+  type    = "list"
+  default = ["default"]
+}
+
 variable "ansible_group" {
   default = "default_group"
 }
