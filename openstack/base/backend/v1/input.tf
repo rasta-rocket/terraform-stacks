@@ -9,6 +9,11 @@ variable "backend_name" {
   default = "backend"
 }
 
+variable "backend_security_groups" {
+  type    = "list"
+  default = ["default"]
+}
+
 variable "backend_ansible_group" {
   default = "backend_group"
 }
@@ -16,6 +21,11 @@ variable "backend_ansible_group" {
 # Bastion
 variable "bastion_name" {
   default = "bastion"
+}
+
+variable "bastion_security_groups" {
+  type    = "list"
+  default = ["default"]
 }
 
 variable "bastion_ansible_group" {

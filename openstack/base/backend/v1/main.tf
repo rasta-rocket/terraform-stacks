@@ -1,27 +1,29 @@
 module "backend" {
-  source        = "../../vm_with_floatingip"
-  instance_name = "${var.backend_name}"
-  image_name    = "${var.image_name}"
-  flavor_name   = "${var.flavor_name}"
-  key_pair      = "${var.key_pair}"
-  ansible_group = "${var.backend_ansible_group}"
-  network_name  = "${var.backend_net}"
-  cidr          = "${var.backend_cidr}"
-  pool          = "${var.pool}"
-  count         = "${var.count}"
+  source               = "../../vm_with_floatingip"
+  instance_name        = "${var.backend_name}"
+  image_name           = "${var.image_name}"
+  flavor_name          = "${var.flavor_name}"
+  key_pair             = "${var.key_pair}"
+  security_groups_list = "${var.backend_security_groups}"
+  ansible_group        = "${var.backend_ansible_group}"
+  network_name         = "${var.backend_net}"
+  cidr                 = "${var.backend_cidr}"
+  pool                 = "${var.pool}"
+  count                = "${var.count}"
 }
 
 module "bastion" {
-  source        = "../../vm_with_floatingip"
-  instance_name = "${var.bastion_name}"
-  image_name    = "${var.image_name}"
-  flavor_name   = "${var.flavor_name}"
-  key_pair      = "${var.key_pair}"
-  ansible_group = "${var.bastion_ansible_group}"
-  network_name  = "${var.bastion_net}"
-  cidr          = "${var.bastion_cidr}"
-  pool          = "${var.pool}"
-  count         = 1
+  source               = "../../vm_with_floatingip"
+  instance_name        = "${var.bastion_name}"
+  image_name           = "${var.image_name}"
+  flavor_name          = "${var.flavor_name}"
+  key_pair             = "${var.key_pair}"
+  security_groups_list = "${var.bastion_security_groups}"
+  ansible_group        = "${var.bastion_ansible_group}"
+  network_name         = "${var.bastion_net}"
+  cidr                 = "${var.bastion_cidr}"
+  pool                 = "${var.pool}"
+  count                = 1
 }
 
 resource "openstack_networking_router_v2" "router" {
