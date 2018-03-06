@@ -54,22 +54,24 @@ $ terraform init
 $ terraform apply
 ```
 ## Input parameters
-| Name                  | Default         | Description                                  |
-|-----------------------|-----------------|----------------------------------------------|
-| image_name            |                 | Image of the instance                        |
-| flavor_name           |                 | Flavor of the instance                       |
-| key_pair              |                 | Key pair name used for SSH                   |
-| backend_name          | backend_server  | Name of the backend instance                 |
-| backend_ansible_group | backend         | Ansible hostgroups name for backend          |
-| backend_net           | backend_net     | Name of the backend network                  |
-| backend_cidr          | 192.168.20.0/24 | CIDR for the backend network                 |
-| bastion_name          | bastion_server  | Name of the bastion instance                 |
-| bastion_ansible_group | bastion         | Ansible hostgroups name for bastion          |
-| bastion_net           | bastion_net     | Name of the bastion network                  |
-| bastion_cidr          | 192.168.2.0/24  | CIDR for the bastion network                 |
-| pool                  | public          | Name of the pool to rertieve the floating IP |
-| gateway_name          | gateway         | Name of the gateway                          |
-| nb_backend            | 1               | Number of backend to create                  |
+| Name                    | Default         | Description                                  |
+|-------------------------|-----------------|----------------------------------------------|
+| image_name              |                 | Image of the instance                        |
+| flavor_name             |                 | Flavor of the instance                       |
+| key_pair                |                 | Key pair name used for SSH                   |
+| backend_name            | backend_server  | Name of the backend instance                 |
+| backend_security_groups | ["default"]     | List of the backend security groups          |
+| backend_ansible_group   | backend         | Ansible hostgroups name for backend          |
+| backend_net             | backend_net     | Name of the backend network                  |
+| backend_cidr            | 192.168.20.0/24 | CIDR for the backend network                 |
+| bastion_name            | bastion_server  | Name of the bastion instance                 |
+| bastion_security_groups | ["default"]     | List of the bastion security groups          |
+| bastion_ansible_group   | bastion         | Ansible hostgroups name for bastion          |
+| bastion_net             | bastion_net     | Name of the bastion network                  |
+| bastion_cidr            | 192.168.2.0/24  | CIDR for the bastion network                 |
+| pool                    | public          | Name of the pool to rertieve the floating IP |
+| gateway_name            | gateway         | Name of the gateway                          |
+| nb_backend              | 1               | Number of backend to create                  |
 
 ## Output values
 | Name          | Description                                  |
