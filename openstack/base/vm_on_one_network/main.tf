@@ -12,7 +12,7 @@ resource "openstack_compute_instance_v2" "instance" {
   image_name      = "${var.image_name}"
   flavor_name     = "${var.flavor_name}"
   key_pair        = "${var.key_pair}"
-  security_groups = "${var.security_groups_list}"
+  security_groups = ["${var.security_groups_list}"]
 
   network {
     name = "${openstack_networking_network_v2.net.name}"
