@@ -50,22 +50,24 @@ $ ansible-galaxy install -r requirements.yml
 $ ansible-playbook playbook.yml
 ```
 ## Input parameters
-| Name                  | Default              | Description                                  |
-|-----------------------|----------------------|----------------------------------------------|
-| image_name            |                      | Image of the instance                        |
-| flavor_name           |                      | Flavor of the instance                       |
-| key_pair              |                      | Key pair name used for SSH                   |
-| backend_name          | nginx_server         | Name of the backend instance                 |
-| backend_ansible_group | nginx                | Ansible hostgroups name for backend          |
-| backend_net           | nginx_net            | Name of the backend network                  |
-| backend_cidr          | 192.168.10.0/24      | CIDR for the backend network                 |
-| bastion_name          | bastion_server       | Name of the bastion instance                 |
-| bastion_ansible_group | bastion              | Ansible hostgroups name for bastion          |
-| bastion_net           | bastion_net          | Name of the bastion network                  |
-| bastion_cidr          | 192.168.1.0/24       | CIDR for the bastion network                 |
-| pool                  | public               | Name of the pool to rertieve the floating IP |
-| router_name           | router_nginx_bastion | Name of the router                           |
-| count                 | 1                    | Number of backend to create                  |
+| Name                         | Default                       | Description                                  |
+|------------------------------|-------------------------------|----------------------------------------------|
+| image_name                   |                               | Image of the instance                        |
+| flavor_name                  |                               | Flavor of the instance                       |
+| key_pair                     |                               | Key pair name used for SSH                   |
+| backend_name                 | nginx_server                  | Name of the backend instance                 |
+| backend_ansible_group        | nginx                         | Ansible hostgroups name for backend          |
+| backend_net                  | nginx_net                     | Name of the backend network                  |
+| backend_cidr                 | 192.168.10.0/24               | CIDR for the backend network                 |
+| bastion_name                 | bastion_server                | Name of the bastion instance                 |
+| bastion_ansible_group        | bastion                       | Ansible hostgroups name for bastion          |
+| bastion_net                  | bastion_net                   | Name of the bastion network                  |
+| bastion_cidr                 | 192.168.1.0/24                | CIDR for the bastion network                 |
+| pool                         | public                        | Name of the pool to rertieve the floating IP |
+| router_name                  | router_nginx_bastion          | Name of the router                           |
+| security_group_ssh_icmp_name | nginx_security_group_ssh_icmp | Name of the security group SSH + ICMP        |
+| security_group_http_name     | nginx_security_group_http     | Name of the security group HTTP(s)           |
+| count                        | 1                             | Number of backend to create                  |
 
 ## Output values
 | Name                | Description                                  |

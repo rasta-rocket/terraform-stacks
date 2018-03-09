@@ -48,6 +48,15 @@ variable "router_name" {
   default = "router_nginx_bastion"
 }
 
+# Security Group
+variable "security_group_ssh_icmp_name" {
+  default = "nginx_security_group_ssh_icmp"
+}
+
+variable "security_group_http_name" {
+  default = "nginx_security_group_http"
+}
+
 # Count (number of backend)
 variable "count" {
   default = "1"
