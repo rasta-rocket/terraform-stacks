@@ -26,13 +26,22 @@ variable "bastion_ansible_group" {
   default = "bastion"
 }
 
+# Security Group
+variable "security_group_ssh_icmp_name" {
+  default = "nginx_security_group_ssh_icmp"
+}
+
+variable "security_group_http_name" {
+  default = "nginx_security_group_http"
+}
+
 # Network
 variable "external_net" {
   default = "public"
 }
 
 variable "backend_net" {
-  default = "backend_net"
+  default = "nginx_net"
 }
 
 variable "backend_cidr" {
