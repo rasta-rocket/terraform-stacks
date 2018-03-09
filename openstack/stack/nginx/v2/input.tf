@@ -1,54 +1,63 @@
 # Default
-variable image_name {}
+variable "image_name" {}
 
-variable flavor_name {}
-variable key_pair {}
+variable "flavor_name" {}
+variable "key_pair" {}
 
 # Backend
-variable backend_name {
+variable "backend_name" {
   default = "nginx_server"
 }
 
-variable backend_ansible_group {
+variable "backend_ansible_group" {
   default = "nginx"
 }
 
 # Bastion
-variable bastion_name {
+variable "bastion_name" {
   default = "bastion_server"
 }
 
-variable bastion_ansible_group {
+variable "bastion_ansible_group" {
   default = "bastion"
 }
 
 # Network
-variable external_net {
+variable "external_net" {
   default = "public"
 }
 
-variable backend_net {
+variable "backend_net" {
   default = "nginx_net"
 }
 
-variable backend_cidr {
+variable "backend_cidr" {
   default = "192.168.10.0/24"
 }
 
-variable bastion_net {
+variable "bastion_net" {
   default = "bastion_net"
 }
 
-variable bastion_cidr {
+variable "bastion_cidr" {
   default = "192.168.1.0/24"
 }
 
 # Router
-variable gateway_name {
+variable "gateway_name" {
   default = "gateway"
 }
 
+# Security Group
+variable "security_group_ssh_icmp_name" {
+  default = "nginx_security_group_ssh_icmp"
+}
+
+variable "security_group_http_name" {
+  default = "nginx_security_group_http"
+}
+
 # Count (number of backend)
-variable nb_backend {
+variable "nb_backend" {
   default = "1"
 }
