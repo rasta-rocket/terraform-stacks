@@ -1,0 +1,41 @@
+---
+- name: Gather facts
+  hosts: all
+  tasks:
+  - name: Gather facts on all hosts
+    setup: {}
+
+- name: Install Container Engine
+  hosts: agents:analyzers
+  tags: docker
+  become: yes
+  tasks:
+  - apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+  - apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+      state: present
+      update_cache: yes
+  - apt:
+      name: docker-ce
+      state: present
+
+- name: Install third parties
+  hosts: agents:analyzers
+  become: yes
+  tasks:
+  - apt:
+      name: python-yaml
+
+- name: Deploy Skydive agents
+  hosts: agents
+  become: true
+  roles:
+  - skydive_agent
+
+- name: Deploy Skydive analyzers
+  hosts: analyzers
+  become: true
+  roles:
+  - skydive_analyzer
