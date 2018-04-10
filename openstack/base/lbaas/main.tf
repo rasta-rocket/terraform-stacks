@@ -15,10 +15,11 @@ resource "openstack_lb_pool_v1" "pool" {
 }
 
 resource "openstack_lb_member_v1" "member" {
-  pool_id = "${openstack_lb_pool_v1.pool.id}"
-  address = "${element(var.members_ip, count.index)}"
-  port    = "${var.lb_port}"
-  count   = "${var.nb_members}"
+  admin_state_up = "true"
+  pool_id        = "${openstack_lb_pool_v1.pool.id}"
+  address        = "${element(var.members_ip, count.index)}"
+  port           = "${var.lb_port}"
+  count          = "${var.nb_members}"
 }
 
 resource "openstack_networking_network_v2" "vip_net" {
@@ -31,9 +32,10 @@ resource "openstack_networking_subnet_v2" "vip_subnet" {
 }
 
 resource "openstack_lb_vip_v1" "vip" {
-  name      = "${var.lb_vip_name}"
-  subnet_id = "${openstack_networking_subnet_v2.vip_subnet.id}"
-  protocol  = "${var.lb_protocol}"
-  port      = "${var.lb_port}"
-  pool_id   = "${openstack_lb_pool_v1.pool.id}"
+  admin_state_up = "true"
+  name           = "${var.lb_vip_name}"
+  subnet_id      = "${openstack_networking_subnet_v2.vip_subnet.id}"
+  protocol       = "${var.lb_protocol}"
+  port           = "${var.lb_port}"
+  pool_id        = "${openstack_lb_pool_v1.pool.id}"
 }
