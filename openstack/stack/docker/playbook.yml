@@ -1,0 +1,8 @@
+- name: "Install docker host"
+  hosts: "docker"
+  become: "yes"
+  tasks:
+    - include_role:
+        name: "avinetworks.docker"
+      vars:
+        docker_hosts: '["unix:///var/run/docker.sock","tcp://0.0.0.0:2376"]'
