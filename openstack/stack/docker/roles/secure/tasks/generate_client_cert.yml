@@ -1,0 +1,11 @@
+- name: "Generate Client key"
+  shell: openssl genrsa -out {{ base_path }}/{{ client_key }} 4096
+
+- name: "Generate Client CSR"
+  shell: openssl req -subj '/CN=client' -new -key {{ base_path }}/{{ client_key }} -out {{ base_path }}/client.csr
+
+- name: "Set extendedKeyUsage value"
+  shell: echo extendedKeyUsage = clientAuth >> {{ base_path }}/extfile.cnf
+
+- name: "Generate Client cert"
+  shell: openssl x509 -req -days 365 -sha256 -passin pass:{{ passphrase }} -in {{ base_path }}/client.csr -CA {{ base_path }}/{{ ca }} -CAkey {{ base_path }}/{{ ca_key }} -CAcreateserial -out {{ base_path }}/{{ client_cert }} -extfile {{ base_path }}/extfile.cnf

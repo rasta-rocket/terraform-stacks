@@ -1,0 +1,5 @@
+- name: "Generate CA key"
+  shell: openssl genrsa -aes256 -passout pass:{{ passphrase }} -out {{ base_path }}/{{ ca_key }} 4096
+
+- name: "Generate CA cert"
+  shell: "openssl req -new -x509 -days 365 -key {{ base_path }}/{{ ca_key }} -passin pass:{{ passphrase }} -subj '/C=FR/ST=IDF/L=BOU/O=CW/OU=RJ45 Team/CN=docker-host.com' -sha256 -out {{ base_path }}/{{ ca }}"

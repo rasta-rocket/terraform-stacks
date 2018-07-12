@@ -1,0 +1,8 @@
+- name: "Create base_path"
+  shell: mkdir -p {{ base_path }}
+
+- include_tasks: generate_ca_cert.yml
+
+- include_tasks: generate_server_cert.yml
+
+- include_tasks: generate_client_cert.yml

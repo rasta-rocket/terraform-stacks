@@ -1,8 +1,45 @@
 - name: "Install docker host"
   hosts: "docker"
-  become: "yes"
+  vars:
+    base_path: "/tmp/cert"
+    ca_key: "docker_ca_key"
+    ca: "docker_ca"
+    server_key: "docker_server_key"
+    server_cert: "docker_server_cert"
+    client_key: "docker_client_key"
+    client_cert: "docker_client_cert"
   tasks:
     - include_role:
+        name: "secure"
+
+    - include_role:
         name: "avinetworks.docker"
+      become: Yes
       vars:
         docker_hosts: '["unix:///var/run/docker.sock","tcp://0.0.0.0:2376"]'
+        docker_tlsverify: Yes
+        docker_tlscacert: "{{ base_path }}/{{ ca }}"
+        docker_tlscert: "{{ base_path }}/{{ server_cert }}"
+        docker_tlskey: "{{ base_path }}/{{ server_key }}"
+
+    - name: "Fetch CA cert"
+      fetch:
+        src: "{{ base_path }}/{{ ca }}"
+        dest: "{{ client_cert_dir }}/"
+        flat: yes
+
+    - name: "Fetch Client cert"
+      fetch:
+        src: "{{ base_path }}/{{ client_cert }}"
+        dest: "{{ client_cert_dir }}/"
+        flat: yes
+
+    - name: "Fetch Client key"
+      fetch:
+        src: "{{ base_path }}/{{ client_key }}"
+        dest: "{{ client_cert_dir }}/"
+        flat: yes
+
+    - name: "Add the following alias in your .bashrc"
+      debug:
+        msg: "alias dockerx=\"docker --tlsverify -H={{ ansible_host }}:2376 --tlscacert={{ client_cert_dir }}/{{ ca }} --tlscert={{ client_cert_dir }}/{{ client_cert }} --tlskey={{ client_cert_dir }}/{{ client_key }}\""

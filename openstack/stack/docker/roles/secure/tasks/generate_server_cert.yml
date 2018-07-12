@@ -1,0 +1,11 @@
+- name: "Generate Server key"
+  shell: openssl genrsa -out {{ base_path }}/{{ server_key }} 4096
+
+- name: "Generate Server CSR"
+  shell: openssl req -subj "/CN=docker-host.com" -sha256 -new -key {{ base_path }}/{{ server_key }} -out {{ base_path }}/server.csr
+
+- name: "Set subjectAltName value"
+  shell: echo subjectAltName = DNS:{{ ansible_hostname }},IP:{{ ansible_host }},IP:127.0.0.1 >> {{ base_path }}/extfile.cnf
+
+- name: "Generate Server cert"
+  shell: openssl x509 -req -days 365 -sha256 -passin pass:{{ passphrase }} -in {{ base_path }}/server.csr -CA {{ base_path }}/{{ ca }} -CAkey {{ base_path}}/{{ ca_key }} -CAcreateserial -out {{ base_path }}/{{ server_cert }} -extfile {{ base_path }}/extfile.cnf

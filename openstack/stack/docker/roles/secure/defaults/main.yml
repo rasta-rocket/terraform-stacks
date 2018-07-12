@@ -1,0 +1,7 @@
+base_path: "~/cert"
+ca_key: "docker_ca_key"
+ca: "docker_ca"
+server_key: "docker_server_key"
+server_cert: "docker_server_cert"
+client_key: "docker_client_key"
+client_cert: "docker_client_cert"
