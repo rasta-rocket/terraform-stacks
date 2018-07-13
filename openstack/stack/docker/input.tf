@@ -21,6 +21,10 @@ variable "security_group_ssh_icmp_name" {
   default = "docker_security_group_ssh_icmp"
 }
 
+variable "security_group_docker_name" {
+  default = "docker_security_group_docker"
+}
+
 # Docker Ports
 variable "docker_api_port" {
 	default = "2376"

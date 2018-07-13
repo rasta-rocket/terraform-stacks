@@ -1,5 +1,5 @@
 resource "openstack_compute_secgroup_v2" "docker_secgroup" {
-  name        = "docker_secgroup"
+  name        = "${var.security_group_docker_name}"
   description = "Allow Docker host traffic"
 
   rule {
