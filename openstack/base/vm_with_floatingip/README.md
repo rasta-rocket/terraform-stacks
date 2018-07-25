@@ -57,7 +57,7 @@ $ terraform apply
 | ansible_group        | default_group   | Ansible Hostgroups name                      |
 | pool                 | public          | Name of the pool to rertieve the floating IP |
 | network_name         | net_tf          | Name of the network                          |
-| cidr                 | 192.168.1O.0/24 | CIDR                                         |
+| cidr                 | 192.168.10.0/24 | CIDR                                         |
 | count                | 1               | Number of bastion to create                  |
 
 ## Output values
