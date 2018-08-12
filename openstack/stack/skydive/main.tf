@@ -39,11 +39,11 @@ module "bastion" {
 }
 
 module "gateway" {
-  source      = "../../base/gateway"
-  router_name = "${var.gateway_name}"
-  subnet_ids  = "${list(module.analyzer.subnet_id, module.agent.subnet_id, module.bastion.subnet_id)}"
-  nb_subnet   = "3"
-  ext_gw_net  = "${var.external_net}"
+  source       = "../../base/gateway"
+  router_name  = "${var.gateway_name}"
+  subnet_ids   = "${list(module.analyzer.subnet_id, module.agent.subnet_id, module.bastion.subnet_id)}"
+  nb_subnet    = "3"
+  external_net = "${var.external_net}"
 }
 
 module "security_group_ssh_icmp" {

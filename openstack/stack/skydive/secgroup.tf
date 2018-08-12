@@ -15,7 +15,7 @@ resource "openstack_compute_secgroup_v2" "skydive_secgroup" {
     ip_protocol = "tcp"
     cidr        = "0.0.0.0/0"
   }
-  
+
   rule {
     from_port   = "${var.skydive_etcd_port}"
     to_port     = "${var.skydive_etcd_port}"

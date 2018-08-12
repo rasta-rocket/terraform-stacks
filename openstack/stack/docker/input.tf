@@ -1,5 +1,6 @@
 # Default
 variable "image_name" {}
+
 variable "flavor_name" {}
 variable "key_pair" {}
 
@@ -27,7 +28,7 @@ variable "security_group_docker_name" {
 
 # Docker Ports
 variable "docker_api_port" {
-	default = "2376"
+  default = "2376"
 }
 
 # Network

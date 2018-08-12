@@ -46,15 +46,15 @@ variable "security_group_ssh_icmp_name" {
 
 # Skydive Ports
 variable "skydive_analyzer_port" {
-	default = "8082"
+  default = "8082"
 }
 
 variable "skydive_agent_port" {
-	default = "8081"
+  default = "8081"
 }
 
 variable "skydive_etcd_port" {
-	default = "2379"
+  default = "2379"
 }
 
 # Network
