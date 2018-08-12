@@ -45,7 +45,7 @@ $ terraform apply
 | router_name           | router        | Name of the gateway                                    |
 | subnet_ids            |               | List of the subnet IDs the gateway should be connected |
 | nb_subnet             |               | Number of subnet that will be connected to the gateway |
-| ext_gw_net            |               | Name of the external network                           |
+| external_net          |               | Name of the external network                           |
 
 ## Output values
 | Name                | Description                                  |
