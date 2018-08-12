@@ -26,9 +26,9 @@ module "bastion" {
 }
 
 module "gateway" {
-  source      = "../../gateway"
-  router_name = "${var.gateway_name}"
-  subnet_ids  = "${list(module.backend.subnet_id, module.bastion.subnet_id)}"
-  nb_subnet   = "2"
-  ext_gw_net  = "${var.external_net}"
+  source       = "../../gateway"
+  router_name  = "${var.gateway_name}"
+  subnet_ids   = "${list(module.backend.subnet_id, module.bastion.subnet_id)}"
+  nb_subnet    = "2"
+  external_net = "${var.external_net}"
 }

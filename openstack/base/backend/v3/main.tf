@@ -41,9 +41,9 @@ module "lbaas" {
 }
 
 module "gateway" {
-  source      = "../../gateway"
-  router_name = "${var.gateway_name}"
-  subnet_ids  = "${list(module.backend.subnet_id, module.bastion.subnet_id, module.lbaas.vip_subnet_id)}"
-  nb_subnet   = "3"
-  ext_gw_net  = "${var.external_net}"
+  source       = "../../gateway"
+  router_name  = "${var.gateway_name}"
+  subnet_ids   = "${list(module.backend.subnet_id, module.bastion.subnet_id, module.lbaas.vip_subnet_id)}"
+  nb_subnet    = "3"
+  external_net = "${var.external_net}"
 }
