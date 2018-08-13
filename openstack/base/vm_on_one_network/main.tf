@@ -8,7 +8,7 @@ resource "openstack_networking_subnet_v2" "subnet" {
 }
 
 resource "openstack_compute_instance_v2" "instance" {
-  name            = "${var.instance_name}_${count.index}"
+  name            = "${var.count > 1 ? format("%s_%d",var.instance_name, count.index) : var.instance_name}"
   image_name      = "${var.image_name}"
   flavor_name     = "${var.flavor_name}"
   key_pair        = "${var.key_pair}"
