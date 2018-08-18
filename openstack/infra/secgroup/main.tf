@@ -60,6 +60,66 @@ resource "openstack_networking_secgroup_rule_v2" "secgrouprule_http_out" {
   security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
 }
 
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_https_in" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 443
+  port_range_max    = 443
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_https_out" {
+  direction         = "egress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 443
+  port_range_max    = 443
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_tcp_dns_in" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 53
+  port_range_max    = 53
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_tcp_dns_out" {
+  direction         = "egress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 53
+  port_range_max    = 53
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_udp_dns_in" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "udp"
+  port_range_min    = 53
+  port_range_max    = 53
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_udp_dns_out" {
+  direction         = "egress"
+  ethertype         = "IPv4"
+  protocol          = "udp"
+  port_range_min    = 53
+  port_range_max    = 53
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
+
 resource "openstack_networking_secgroup_rule_v2" "secgrouprule_docker_api_in" {
   direction         = "ingress"
   ethertype         = "IPv4"
