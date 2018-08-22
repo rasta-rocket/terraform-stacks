@@ -1,0 +1,12 @@
+- include_vars: tools.yml
+
+- name: "Tools : Update APT repositories cache"
+  apt:
+    update_cache: yes
+
+- name: "Tools : Install/Remove APT packages"
+  apt:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    purge: yes
+  with_items: "{{ tools_apt }}"

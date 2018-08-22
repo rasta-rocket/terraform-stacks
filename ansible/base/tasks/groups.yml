@@ -1,0 +1,8 @@
+- include_vars: groups.yml
+
+- name: "Create/Delete groups"
+  group:
+    name: "{{ item.group }}"
+    gid: "{{ item.gid }}"
+    state: "{{ item.state }}"
+  with_items: "{{ groups_list }}"

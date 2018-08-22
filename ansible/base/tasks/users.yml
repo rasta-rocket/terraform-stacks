@@ -1,0 +1,12 @@
+- include_vars: users.yml
+
+- name: "Create/Delete users"
+  user:
+    name: "{{ item.user }}"
+    group: "{{ item.group }}"
+    groups: "{{ item.groups }}"
+    uid: "{{ item.uid }}"
+    password: "{{ item.password }}"
+    shell: "/bin/bash"
+    state: "{{ item.state }}"
+  with_items: "{{ users_list }}"

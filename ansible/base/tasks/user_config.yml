@@ -1,0 +1,16 @@
+- include_vars: users.yml
+
+- include_vars: user_config.yml
+
+- name: "User config: update .profile"
+  blockinfile:
+    path: "/home/{{ item.user }}/.profile"
+    block: "{{ config_files.profile.content}}"
+    insertafter: EOF
+    mode: "{{ config_files.profile.mode }}"
+    owner: "{{ item.user }}"
+    group: "{{ item.group }}"
+    create: yes
+    state: present
+  with_items: "{{ users_list }}"
+  when: item.state == "present"

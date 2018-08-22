@@ -1,0 +1,8 @@
+- include_vars: users.yml
+
+- name: "Create/Delete authorized keys"
+  authorized_key:
+    user: "{{ item.user }}"
+    state: "{{ item.state }}"
+    key: "{{ lookup('file', item.user+'_key.pub') }}"
+  with_items: "{{ users_list }}"
