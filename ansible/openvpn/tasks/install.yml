@@ -1,0 +1,15 @@
+- include_vars: install.yml
+
+- name: "Install : Add APT key"
+  apt_key:
+    url: "{{ openvpn_install.key }}"
+
+- name: "Install : Add APT repository"
+  apt_repository:
+    repo: "deb {{ openvpn_install.repo }}/{{ openvpn_install.version}} {{ ansible_lsb.codename }} main"
+    filename: "{{ openvpn_install.name }}"
+    update_cache: yes
+
+- name: "Install : Install Openvpn package"
+  apt:
+    name: "{{ openvpn_install.name }}"

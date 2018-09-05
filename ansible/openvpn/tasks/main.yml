@@ -1,0 +1,2 @@
+- name: "Install VPN"
+  include_tasks: install.yml
