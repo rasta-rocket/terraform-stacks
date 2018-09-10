@@ -8,9 +8,10 @@ Set of cloud based stacks managed with [terraform](https://www.terraform.io/).
 
 ## Dependencies
 To setup these stacks, install the following:
-* [Terraform](https://www.terraform.io/) (>=10)
+* [Terraform](https://www.terraform.io/) (>=0.10.0)
+* [Terraform Provider Openstack](https://www.terraform.io/docs/providers/openstack/index.html) (>=1.9.0)
 * [Ansible](https://www.ansible.com/) (>=2.4)
-* [Terraform-Inventory](https://github.com/rasta-rocket/terraform-inventory)
+* [Terraform-Inventory](https://github.com/rasta-rocket/terraform-inventory) (>=1.2.0)
 
 ## Usage
 Go to the stack directory and chose one use case:
