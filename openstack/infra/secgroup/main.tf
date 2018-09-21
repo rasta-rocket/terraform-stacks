@@ -120,6 +120,26 @@ resource "openstack_networking_secgroup_rule_v2" "secgrouprule_udp_dns_out" {
   security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
 }
 
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_vpn_in" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "udp"
+  port_range_min    = 1194
+  port_range_max    = 1194
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_vpn_out" {
+  direction         = "egress"
+  ethertype         = "IPv4"
+  protocol          = "udp"
+  port_range_min    = 1194
+  port_range_max    = 1194
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
+
 resource "openstack_networking_secgroup_rule_v2" "secgrouprule_docker_api_in" {
   direction         = "ingress"
   ethertype         = "IPv4"
