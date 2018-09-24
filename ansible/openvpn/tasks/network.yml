@@ -1,0 +1,12 @@
+- name: "Enable IP Forward"
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    sysctl_set: yes
+
+- name: "Setup SNAT"
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    out_interface: "{{ ansible_default_ipv4.interface }}"
+    jump: MASQUERADE

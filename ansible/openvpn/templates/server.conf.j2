@@ -1,0 +1,45 @@
+###################################################
+# Server configuration                            #
+###################################################
+daemon
+topology subnet
+server {{ openvpn_configure.pool.network }} {{ openvpn_configure.pool.netmask }}
+ifconfig-pool-persist ipp.txt
+
+{% if openvpn_configure.local is defined %}
+local {{ openvpn_configure.local }}
+{% endif %}
+port {{ openvpn_configure.port }}
+proto {{ openvpn_configure.proto }}
+dev {{ openvpn_configure.dev }}
+
+max-clients {{ openvpn_configure.max_clients }}
+keepalive {{ openvpn_configure.keepalive.interval }} {{ openvpn_configure.keepalive.timeout }}
+
+###################################################
+# Configuration pushed                            #
+###################################################
+{% for route in openvpn_configure.routes %}
+push "route {{ route.network }} {{ route.netmask }} {{ route.gateway }}"
+{% endfor %}
+
+###################################################
+# Security configuration                          #
+###################################################
+
+ca {{ openvpn_configure.ca }}
+cert {{ openvpn_configure.cert }}
+key {{ openvpn_configure.key }}
+cipher {{ openvpn_configure.cipher }}
+
+dh {{ openvpn_configure.dh }}
+
+persist-key
+persist-tun
+
+###################################################
+# Logs configuration                              #
+###################################################
+status {{ openvpn_configure.status }}
+verb {{ openvpn_configure.verb }}
+explicit-exit-notify 1

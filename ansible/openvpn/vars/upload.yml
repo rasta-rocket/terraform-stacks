@@ -1,0 +1,24 @@
+files:
+  - src: "{{ default.openvpn_security.ca }}"
+    dest: "{{ default.openvpn_configure.path }}/{{ default.openvpn_security.ca }}"
+    owner: root
+    group: root
+    mode: "0644"
+
+  - src: "{{ default.openvpn_security.cert }}"
+    dest: "{{ default.openvpn_configure.path }}/{{ default.openvpn_security.cert }}"
+    owner: root
+    group: root
+    mode: "0644"
+
+  - src: "{{ default.openvpn_security.key }}"
+    dest: "{{ default.openvpn_configure.path }}/{{ default.openvpn_security.key }}"
+    owner: root
+    group: root
+    mode: "0644"
+
+  - src: "{{ default.openvpn_security.dh }}"
+    dest: "{{ default.openvpn_configure.path }}/{{ default.openvpn_security.dh }}"
+    owner: root
+    group: root
+    mode: "0644"

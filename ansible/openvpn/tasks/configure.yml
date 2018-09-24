@@ -1,5 +1,5 @@
 - include_vars: configure.yml
 
 - template:
-    src: server.conf.j2
-    dest: "{{ openvpn_configure.file }}"
+    src: "{{ openvpn_configure.src }}"
+    dest: "{{ openvpn_configure.dest }}"

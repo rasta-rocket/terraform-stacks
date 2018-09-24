@@ -1,8 +1,2 @@
-- name: "Install VPN"
-  include_tasks: install.yml
-
-- name: "Upload files"
-  include_tasks: upload.yml
-
-- name: "Configure VPN"
-  include_tasks: configure.yml
+- name: "Default : Install OpenVPN server"
+  include_tasks: server.yml

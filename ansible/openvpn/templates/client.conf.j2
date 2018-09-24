@@ -1,0 +1,31 @@
+###################################################
+# Client configuration                            #
+###################################################
+client
+remote {{ openvpn_configure.server }} {{ openvpn_configure.port }}
+nobind
+
+proto {{ openvpn_configure.proto }}
+dev {{ openvpn_configure.dev }}
+
+resolv-retry infinite
+keepalive {{ openvpn_configure.keepalive.interval }} {{ openvpn_configure.keepalive.timeout }}
+
+###################################################
+# Security configuration                          #
+###################################################
+
+ca {{ openvpn_configure.ca }}
+cert {{ openvpn_configure.cert }}
+key {{ openvpn_configure.key }}
+cipher {{ openvpn_configure.cipher }}
+
+persist-key
+persist-tun
+
+###################################################
+# Logs configuration                              #
+###################################################
+status {{ openvpn_configure.status }}
+verb {{ openvpn_configure.verb }}
+explicit-exit-notify 1

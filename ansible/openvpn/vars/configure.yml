@@ -1,1 +1,23 @@
 openvpn_configure:
+    server: "{{ default.openvpn_configure.server }}"
+    src: "{{ default.openvpn_configure.src }}"
+    dest: "{{ default.openvpn_configure.dest }}"
+    port: "{{ default.openvpn_configure.port }}"
+    proto: "{{ default.openvpn_configure.proto }}"
+    dev: "{{ default.openvpn_configure.dev }}"
+    max_clients: "{{ default.openvpn_configure.max_clients }}"
+    ca: "{{ default.openvpn_configure.path }}/{{ default.openvpn_security.ca }}"
+    cert: "{{ default.openvpn_configure.path }}/{{ default.openvpn_security.cert }}"
+    key: "{{ default.openvpn_configure.path }}/{{ default.openvpn_security.key }}"
+    dh: "{{ default.openvpn_configure.path }}/{{ default.openvpn_security.dh }}"
+    cipher: "{{ default.openvpn_security.cipher }}"
+    pool:
+      network: "{{ default.openvpn_configure.pool.network }}"
+      netmask: "{{ default.openvpn_configure.pool.netmask }}"
+    keepalive:
+      interval: "{{ default.openvpn_configure.keepalive.interval }}"
+      timeout: "{{ default.openvpn_configure.keepalive.timeout }}"
+    status: "{{ default.openvpn_configure.status }}"
+    verb: "{{ default.openvpn_configure.verb }}"
+    resolv_retry: "{{ default.openvpn_configure.resolv_retry | default('ifinite') }}"
+    routes: "{{ default.openvpn_configure.routes | default('[]')}}"

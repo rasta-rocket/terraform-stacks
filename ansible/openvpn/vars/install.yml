@@ -1,5 +1,5 @@
 openvpn_install:
-  name: "openvpn"
-  repo: "http://build.openvpn.net/debian/openvpn/"
-  version: "release/2.4"
-  key: "https://swupdate.openvpn.net/repos/repo-public.gpg"
+  name: openvpn
+  repo: http://build.openvpn.net/debian/openvpn/
+  version: release/2.4
+  key: https://swupdate.openvpn.net/repos/repo-public.gpg
