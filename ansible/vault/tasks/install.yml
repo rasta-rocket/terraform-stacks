@@ -1,0 +1,9 @@
+- include_vars: install.yml
+
+- name: "Install : Install binary"
+  unarchive:
+    src: "{{ vault_install.binary.src }}"
+    remote_src: "true"
+    dest: "{{ vault_install.binary.path }}/"
+    mode: "{{ vault_install.binary.mode }}"
+    group: "{{ vault_install.binary.group }}"

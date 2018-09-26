@@ -1,0 +1,2 @@
+- name: "Default : Install Vault server"
+  include_tasks: install.yml
