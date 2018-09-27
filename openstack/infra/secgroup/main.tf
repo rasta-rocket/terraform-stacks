@@ -144,8 +144,8 @@ resource "openstack_networking_secgroup_rule_v2" "secgrouprule_docker_api_in" {
   direction         = "ingress"
   ethertype         = "IPv4"
   protocol          = "tcp"
-  port_range_min    = 2376
-  port_range_max    = 2376
+  port_range_min    = 2375
+  port_range_max    = 2375
   remote_ip_prefix  = "${var.remote_ip_prefix}"
   security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
 }
@@ -154,8 +154,8 @@ resource "openstack_networking_secgroup_rule_v2" "secgrouprule_docker_api_out" {
   direction         = "egress"
   ethertype         = "IPv4"
   protocol          = "tcp"
-  port_range_min    = 2376
-  port_range_max    = 2376
+  port_range_min    = 2375
+  port_range_max    = 2375
   remote_ip_prefix  = "${var.remote_ip_prefix}"
   security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
 }
