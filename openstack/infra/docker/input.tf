@@ -20,6 +20,10 @@ variable "cidr" {
   default = "10.15.3.0/24"
 }
 
+variable "router_name" {
+  default = "gateway"
+}
+
 # Number of instances
 variable "nb_instances" {
   default = "1"
