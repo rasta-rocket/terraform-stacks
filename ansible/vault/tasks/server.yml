@@ -1,0 +1,11 @@
+- name: "Server : Include install.yml"
+  include_tasks: install.yml
+
+- name: "Server : Include user.yml"
+  include_tasks: user.yml
+
+- name: "Server : Include configure.yml"
+  include_tasks: configure.yml
+
+- name: "Server : Include upload.yml"
+  include_tasks: upload.yml

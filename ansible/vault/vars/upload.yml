@@ -1,0 +1,7 @@
+vault:
+  files:
+  - src: "vault.service"
+    dest: "/etc/systemd/system/vault.service"
+    owner: root
+    group: service
+    mode: "0644"

@@ -2,8 +2,8 @@
 
 - name: "Install : Install binary"
   unarchive:
-    src: "{{ vault_install.binary.src }}"
+    src: "{{ vault.install.binary.src }}"
     remote_src: "true"
-    dest: "{{ vault_install.binary.path }}/"
-    mode: "{{ vault_install.binary.mode }}"
-    group: "{{ vault_install.binary.group }}"
+    dest: "{{ vault.install.binary.path }}/"
+    mode: "{{ vault.install.binary.mode }}"
+    group: "{{ vault.install.binary.group }}"

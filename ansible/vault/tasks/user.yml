@@ -1,0 +1,11 @@
+- include_vars: user.yml
+
+- name: "Create Vault user"
+  user:
+    name: "{{ vault.user.name }}"
+    group: "{{ vault.user.group }}"
+    groups: "{{ vault.user.groups }}"
+    uid: "{{ vault.user.uid }}"
+    password: "{{ vault.user.password }}"
+    shell: "/bin/bash"
+    state: "{{ vault.user.state }}"

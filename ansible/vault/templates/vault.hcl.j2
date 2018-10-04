@@ -1,0 +1,13 @@
+storage "inmem" {}
+
+listener "tcp" {
+  address     = "{{ vault.configure.local_address }}:{{ vault.configure.port }}"
+  tls_disable = 1
+}
+
+listener "tcp" {
+  address     = "{{ vault.configure.address }}:{{ vault.configure.port }}"
+  tls_disable = 1
+}
+
+disable_mlock = true

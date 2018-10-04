@@ -1,0 +1,11 @@
+- include_vars: configure.yml
+
+- file:
+    path: "{{ vault.configure.directory }}"
+    state: "directory"
+
+- template:
+    src: "{{ vault.configure.template }}"
+    dest: "{{ vault.configure.directory }}/{{ vault.configure.file }}"
+    mode: "{{ vault.configure.mode }}"
+    group: "{{ vault.configure.group }}"

@@ -1,7 +1,8 @@
-vault_install:
-  binary:
-    name: vault
-    src: https://releases.hashicorp.com/vault/0.11.1/vault_0.11.1_linux_amd64.zip
-    path: /opt
-    mode: "0750"
-    group: infra
+vault:
+  install:
+    binary:
+      name: vault
+      src: https://releases.hashicorp.com/vault/0.11.1/vault_0.11.1_linux_amd64.zip
+      path: /usr/local/bin
+      mode: "0750"
+      group: service

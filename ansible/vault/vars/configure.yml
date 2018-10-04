@@ -1,0 +1,10 @@
+vault:
+  configure:
+    directory: /etc/vault.d
+    file: vault.hcl
+    template: vault.hcl.j2
+    mode: "0640"
+    group: service
+    local_address: "{{ ansible_lo['ipv4']['address'] }}"
+    address: "{{ ansible_ens3['ipv4']['address'] }}"
+    port: 8200
