@@ -1,0 +1,8 @@
+- name: "Default : Install Docker engine"
+  include_tasks: engine.yml
+
+- name: "Default : Install Docker compose"
+  include_tasks: compose.yml
+
+- name: "Default : Install Docker tools"
+  include_tasks: tools.yml

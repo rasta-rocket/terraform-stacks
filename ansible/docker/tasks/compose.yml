@@ -1,0 +1,9 @@
+- include_vars: compose.yml
+
+- name: "Compose : Install docker-compose"
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.path }}/{{ item.name }}"
+    mode: "{{ item.mode }}"
+    group: "{{ item.group }}"
+  with_items: "{{ docker_compose }}" 

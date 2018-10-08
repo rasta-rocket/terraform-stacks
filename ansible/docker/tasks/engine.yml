@@ -1,0 +1,19 @@
+- name: "Engine : Install Docker engine"
+  include_role:
+    name: "avinetworks.docker"
+  vars:
+    docker_hosts: '["unix:///var/run/docker.sock","tcp://0.0.0.0:2375"]'
+
+- name: "Engine : Override docker systemd unit file"
+  copy:
+    src: /lib/systemd/system/docker.service
+    dest: /etc/systemd/system/docker.service
+    remote_src: true
+    mode: preserve
+
+- name: "Engine : Replace line"
+  lineinfile:
+    path: /etc/systemd/system/docker.service
+    state: present
+    regexp: "^ExecStart="
+    line: "ExecStart=/usr/bin/dockerd"

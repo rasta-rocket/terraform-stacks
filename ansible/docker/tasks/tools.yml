@@ -1,0 +1,9 @@
+- include_vars: tools.yml
+
+- name: "Tools : Install binaries"
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.path }}/{{ item.name }}"
+    mode: "{{ item.mode }}"
+    group: "{{ item.group }}"
+  with_items: "{{ tools_binary }}" 
