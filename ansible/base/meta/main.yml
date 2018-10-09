@@ -1,0 +1,14 @@
+galaxy_info:
+  role_name: base
+  author: rasta-rocket
+  description: Base role
+  company: OpenInfraCorp
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+  - name: Ubuntu
+    versions:
+    - xenial
+  galaxy_tags: []
+
+dependencies: []
