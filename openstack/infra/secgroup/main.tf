@@ -159,3 +159,43 @@ resource "openstack_networking_secgroup_rule_v2" "secgrouprule_docker_api_out" {
   remote_ip_prefix  = "${var.remote_ip_prefix}"
   security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
 }
+
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_consul_api_in" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 8500
+  port_range_max    = 8500
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_consul_api_out" {
+  direction         = "egress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 8500
+  port_range_max    = 8500
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_consul_dns_in" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 8600
+  port_range_max    = 8600
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "secgrouprule_consul_dns_out" {
+  direction         = "egress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 8600
+  port_range_max    = 8600
+  remote_ip_prefix  = "${var.remote_ip_prefix}"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup.id}"
+}
