@@ -1,0 +1,23 @@
+consul:
+  install:
+    binary:
+      name: consul
+      src: https://releases.hashicorp.com/consul/1.2.3/consul_1.2.3_linux_amd64.zip
+      path: /usr/local/bin
+      mode: "0750"
+      group: infra
+  configure:
+  user:
+    name: consul
+    group: service
+    groups:
+    uid: 1101
+    comment: Consul
+    state: present
+  service:    
+    src: consul.service.j2
+    dest: /etc/systemd/system/consul.service
+    owner: root
+    group: service
+    mode: "0644"
+    execStart: /usr/local/bin/consul

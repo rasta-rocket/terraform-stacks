@@ -1,0 +1,7 @@
+- name: "Install : Install binary"
+  unarchive:
+    src: "{{ consul.install.binary.src }}"
+    remote_src: "true"
+    dest: "{{ consul.install.binary.path }}/"
+    mode: "{{ consul.install.binary.mode }}"
+    group: "{{ consul.install.binary.group }}"

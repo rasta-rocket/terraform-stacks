@@ -1,0 +1,8 @@
+- name: "Main : Include install.yml"
+  include_tasks: install.yml
+
+- name: "Main : Include user.yml"
+  include_tasks: user.yml
+
+- name: "Main : Include service.yml"
+  include_tasks: service.yml

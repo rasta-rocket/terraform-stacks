@@ -1,0 +1,8 @@
+- name: "User : Create Consul user"
+  user:
+    name: "{{ consul.user.name }}"
+    group: "{{ consul.user.group }}"
+    groups: "{{ consul.user.groups }}"
+    uid: "{{ consul.user.uid }}"
+    shell: "/bin/false"
+    state: "{{ consul.user.state }}"
