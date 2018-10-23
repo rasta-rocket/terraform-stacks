@@ -21,8 +21,8 @@ resource "openstack_compute_instance_v2" "instance" {
   metadata {
     ansible_group = "${var.ansible_group}"
   }
-	
-	availability_zone = "${var.availability_zone}"
+
+  availability_zone = "${var.availability_zone}"
 
   count = "${var.count}"
 }
