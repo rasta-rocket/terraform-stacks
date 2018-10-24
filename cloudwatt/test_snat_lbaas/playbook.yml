@@ -1,0 +1,49 @@
+- name: "Setup tools"
+  hosts: all
+  become: yes
+  tasks:
+    - apt:
+        update_cache: true
+    - apt:
+        name: "{{ item }}"
+      with_items:
+        - curl
+        - oping
+        - tmux
+        - python3
+
+- name: "Setup backend"
+  hosts: backend
+  tasks:
+    - shell: "terraform output -json | jq -r '.bastion_ip.value[0]'"
+      delegate_to: 127.0.0.1
+      register: bastion
+    - shell: "terraform output -json | jq -r '.backend_ip.value[0]'"
+      delegate_to: 127.0.0.1
+      register: backend
+    - shell: "echo {{ ansible_fqdn }} > index.html"
+    - shell: "tmux kill-session -a && tmux kill-session; sudo pkill python3; true"
+    - shell: "tmux new-session -d -s setup"
+    - shell: "tmux new-window -t setup \"{{ item }}\""
+      with_items:
+        - "sudo python3 -m http.server 80"
+        - "noping 8.8.8.8"
+        - "noping {{ bastion.stdout }}"
+        - "noping {{ backend.stdout }}"
+
+- name: "Setup bastion"
+  hosts: bastion
+  tasks:
+    - shell: "terraform output -json | jq -r '.vip_address.value'"
+      delegate_to: 127.0.0.1
+      register: vip
+    - shell: "terraform output -json | jq -r '.backend_ip.value[0]'"
+      delegate_to: 127.0.0.1
+      register: backend
+    - shell: "tmux kill-session -a && tmux kill-session; sudo pkill python3; true"
+    - shell: "tmux new-session -d -s setup"
+    - shell: "tmux new-window -t setup \"{{ item }}\""
+      with_items:
+        - "watch -n 2 curl {{ vip.stdout }}"
+        - "noping 8.8.8.8"
+        - "noping {{ backend.stdout }}"
