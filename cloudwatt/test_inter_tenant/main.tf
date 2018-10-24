@@ -19,7 +19,7 @@ provider "openstack" {
 }
 
 module "deployment_project_A" {
-  source = "../../base/backend/v2/"
+  source = "../../openstack/base/backend/v2/"
 
   providers = {
     openstack = "openstack.project_A"
@@ -44,7 +44,7 @@ module "deployment_project_A" {
 }
 
 module "security_group_ssh_icmp_project_A" {
-  source = "../../base/security_group_ssh_icmp/v1"
+  source = "../../openstack/base/security_group_ssh_icmp/v1"
 
   providers = {
     openstack = "openstack.project_A"
@@ -54,7 +54,7 @@ module "security_group_ssh_icmp_project_A" {
 }
 
 module "deployment_project_B" {
-  source = "../../base/backend/v2/"
+  source = "../../openstack/base/backend/v2/"
 
   providers = {
     openstack = "openstack.project_B"
@@ -79,7 +79,7 @@ module "deployment_project_B" {
 }
 
 module "security_group_ssh_icmp_project_B" {
-  source = "../../base/security_group_ssh_icmp/v1"
+  source = "../../openstack/base/security_group_ssh_icmp/v1"
 
   providers = {
     openstack = "openstack.project_B"
