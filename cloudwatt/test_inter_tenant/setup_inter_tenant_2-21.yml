@@ -1,0 +1,60 @@
+- name: "Setup tools"
+  hosts: all
+  vars:
+    route_target: "217.1.0.0:2"
+  tasks:
+    - shell: "terraform output -json | jq -r '.project_A.value'"
+      delegate_to: 127.0.0.1
+      register: project_A
+    - shell: "terraform output -json | jq -r '.project_B.value'"
+      delegate_to: 127.0.0.1
+      register: project_B
+    - shell: "terraform output -json | jq -r '.virtual_network_project_A.value'"
+      delegate_to: 127.0.0.1
+      register: virtual_network_project_A
+    - shell: "terraform output -json | jq -r '.virtual_network_project_B.value'"
+      delegate_to: 127.0.0.1
+      register: virtual_network_project_B
+    - debug:
+        var: item
+      with_items:
+        - "{{ project_A.stdout }}"
+        - "{{ project_B.stdout }}"
+        - "{{ virtual_network_project_A.stdout }}"
+        - "{{ virtual_network_project_B.stdout }}"
+
+    - fetch:
+        src: "/etc/contrail/contrail-api.conf"
+        dest: "/tmp/"
+        flat: yes
+      become: true
+
+    - set_fact:
+        admin_tenant_name: "{{ lookup('ini', 'admin_tenant_name section=KEYSTONE  file=/tmp/contrail-api.conf') }}"
+        admin_user: "{{ lookup('ini', 'admin_user section=KEYSTONE  file=/tmp/contrail-api.conf') }}"
+        admin_password: "{{ lookup('ini', 'admin_password section=KEYSTONE  file=/tmp/contrail-api.conf') }}"
+        api_server_ip: "{{ lookup('ini', 'listen_ip_addr section=DEFAULTS  file=/tmp/contrail-api.conf') }}"
+        api_server_port: "{{ lookup('ini', 'listen_port section=DEFAULTS  file=/tmp/contrail-api.conf') }}"
+
+    - copy:
+        src: "vn-rt"
+        dest: "/usr/local/bin/vn-rt"
+        mode: "0744"
+      become: true
+
+    - shell: >
+        vn-rt --api_server_ip {{ api_server_ip }}
+        --api_server_port {{ api_server_port }}
+        --admin_user {{ admin_user }}
+        --admin_password {{ admin_password }}
+        --admin_tenant_name {{ admin_tenant_name }}
+        --tenant_name {{ item.tenant_name }}
+        {{ item.network }}
+        --add
+        --targets {{ route_target }}
+      with_items:
+        - tenant_name: "{{ project_A.stdout }}"
+          network: "{{ virtual_network_project_A.stdout }}"
+        - tenant_name: "{{ project_B.stdout }}"
+          network: "{{ virtual_network_project_B.stdout }}"
+      become: true

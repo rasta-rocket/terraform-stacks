@@ -3,9 +3,8 @@ provider "openstack" {
   user_name   = "${var.user_project_A}"
   tenant_name = "${var.name_project_A}"
   password    = "${var.pwd_project_A}"
-
-  #auth_url    = "http://myauthurl:5000/v2.0"
-  #region      = "${var.region}"
+  auth_url    = "${var.auth_url}"
+  region      = "${var.region}"
 }
 
 provider "openstack" {
@@ -13,9 +12,8 @@ provider "openstack" {
   user_name   = "${var.user_project_B}"
   tenant_name = "${var.name_project_B}"
   password    = "${var.pwd_project_B}"
-
-  #auth_url    = "http://myauthurl:5000/v2.0"
-  #region      = "${var.region}"
+  auth_url    = "${var.auth_url}"
+  region      = "${var.region}"
 }
 
 module "deployment_project_A" {
@@ -29,7 +27,7 @@ module "deployment_project_A" {
   flavor_name             = "${var.flavor_name}"
   key_pair                = "${var.key_pair_project_A}"
   backend_name            = "${var.backend_name}"
-  backend_ansible_group   = "${var.backend_ansible_group}"
+  backend_ansible_group   = "${var.backend_ansible_group_project_A}"
   bastion_name            = "${var.bastion_name}"
   bastion_ansible_group   = "${var.bastion_ansible_group}"
   external_net            = "${var.external_net}"
@@ -64,7 +62,7 @@ module "deployment_project_B" {
   flavor_name             = "${var.flavor_name}"
   key_pair                = "${var.key_pair_project_B}"
   backend_name            = "${var.backend_name}"
-  backend_ansible_group   = "${var.backend_ansible_group}"
+  backend_ansible_group   = "${var.backend_ansible_group_project_B}"
   bastion_name            = "${var.bastion_name}"
   bastion_ansible_group   = "${var.bastion_ansible_group}"
   external_net            = "${var.external_net}"
