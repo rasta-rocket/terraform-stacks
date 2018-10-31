@@ -1,0 +1,45 @@
+- name: "Setup tools"
+  hosts: all
+  become: yes
+  tasks:
+    - apt:
+        update_cache: true
+    - apt:
+        name: "{{ item }}"
+      with_items:
+        - oping
+        - tmux
+
+- name: "Setup project_A"
+  hosts: project_A
+  tasks:
+    - shell: "terraform output -json | jq -r '.bastion_ip_project_A.value'"
+      delegate_to: 127.0.0.1
+      register: bastion
+    - shell: "terraform output -json | jq -r '.backend_ip_project_B.value[0]'"
+      delegate_to: 127.0.0.1
+      register: backend
+    - shell: "tmux kill-session -a && tmux kill-session; true"
+    - shell: "tmux new-session -d -s setup"
+    - shell: "tmux new-window -t setup \"{{ item }}\""
+      with_items:
+        - "noping 8.8.8.8"
+        - "noping {{ bastion.stdout }}"
+        - "noping {{ backend.stdout }}"
+
+- name: "Setup project_B"
+  hosts: project_B
+  tasks:
+    - shell: "terraform output -json | jq -r '.bastion_ip_project_B.value'"
+      delegate_to: 127.0.0.1
+      register: bastion
+    - shell: "terraform output -json | jq -r '.backend_ip_project_A.value[0]'"
+      delegate_to: 127.0.0.1
+      register: backend
+    - shell: "tmux kill-session -a && tmux kill-session; true"
+    - shell: "tmux new-session -d -s setup"
+    - shell: "tmux new-window -t setup \"{{ item }}\""
+      with_items:
+        - "noping 8.8.8.8"
+        - "noping {{ bastion.stdout }}"
+        - "noping {{ backend.stdout }}"

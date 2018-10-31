@@ -1,0 +1,185 @@
+#!/usr/bin/python
+
+import argparse
+import gevent
+import subprocess
+import sys
+
+from vnc_api.vnc_api import *
+
+                                                                                  
+class RouteTargetManager(object):
+    def __init__(self, vnc_api, tenant, network):
+        self._vnc_api = vnc_api
+        try:
+            self._ri = self._vnc_api.routing_instance_read(fq_name=['default-domain', tenant, network, network])
+        except NoIdError:
+            print "Routing instance not found for network %s" % network
+            sys.exit(1)
+
+    def PrintErrors(func):
+        def wrapper(*args, **kwargs):
+            try:
+                func(*args, **kwargs)
+            except Exception,e:
+                print 'Error: %s' % e
+        return wrapper
+
+    def _rt_get_or_create(self, target):
+        try:
+            return self._vnc_api.route_target_read(fq_name=target.split(':'))
+        except NoIdError:
+            rt = RouteTarget(target)
+            self._vnc_api.route_target_create(rt)
+            return self._vnc_api.route_target_read(fq_name=target.split(':'))
+
+    def _delete_orphaned_rt(self, target):
+        rt_obj = self._vnc_api.route_target_read(fq_name=target.split(':'))
+        if rt_obj and not rt_obj.get_routing_instance_back_refs():
+            self._vnc_api.route_target_delete(fq_name=target.split(':'))
+        
+    @PrintErrors
+    def add_rt(self, rt_dict):
+        for rt, imp_exp in rt_dict.items():
+            rt_obj = self._rt_get_or_create(rt)
+            self._ri.add_route_target(rt_obj, InstanceTargetType(import_export=imp_exp))
+        self._vnc_api.routing_instance_update(self._ri)
+
+    @PrintErrors
+    def del_rt(self, rt_dict):
+        for rt, imp_exp in rt_dict.items():
+            rt_obj = self._vnc_api.route_target_read(fq_name=rt.split(':'))
+            self._ri.del_route_target(rt_obj)
+        self._vnc_api.routing_instance_update(self._ri)
+        # garbage collection of orphaned route-target objects:
+        for rt in rt_dict.keys():
+            self._delete_orphaned_rt(rt)
+
+    '''
+    unfortunately set_route_target_list doesn't work as expected...
+    @PrintErrors
+    def set_rt(self, rt_dict):
+        rt_obj_dict = {}
+        old_rts = self._ri.get_route_target_refs()
+        for rt, imp_exp in rt_dict.items():
+            rt_obj_dict[self._rt_get_or_create(rt)] = \
+                InstanceTargetType(import_export=imp_exp)
+        print rt_obj_dict
+        self._ri.set_route_target_list(rt_obj_dict.keys(),
+                                       rt_obj_dict.values())
+        self._vnc_api.routing_instance_update(self._ri)
+        # garbage collection of orphaned route-target objects:
+        for rt in rt_dict.keys():
+            self._delete_orphaned_rt(rt)
+    use create and delete instead:
+    '''
+
+    @PrintErrors
+    def set_rt(self, rt_dict):
+        rt_obj_dict = {}
+        ref_list = self._ri.get_route_target_refs()
+        old_rts = [ref['to'][0] for ref in ref_list]
+        old_imp_exp = [ref['attr'].import_export for ref in ref_list]
+        odl_rt_dict = dict(zip(old_rts, old_imp_exp))
+        intersect = set([rt for rt in old_rts if rt in rt_dict])
+        # deleted rts
+        for rt in set(old_rts) - intersect:
+            rt_obj = self._vnc_api.route_target_read(fq_name=rt.split(':'))
+            self._ri.del_route_target(rt_obj)
+        # added rts
+        for rt in set(rt_dict.keys()) - intersect:
+            rt_obj = self._rt_get_or_create(rt)
+            self._ri.add_route_target(rt_obj,
+                InstanceTargetType(import_export=rt_dict[rt]))
+        # changed rts
+        for rt in [rt for rt in intersect if odl_rt_dict[rt] != rt_dict[rt]]:
+            rt_obj = self._rt_get_or_create(rt)
+            self._ri.del_route_target(rt_obj)
+            self._ri.add_route_target(rt_obj,
+                InstanceTargetType(import_export=rt_dict[rt]))
+        # update routing instance
+        self._vnc_api.routing_instance_update(self._ri)
+        # garbage collection of orphaned route-target objects:
+        for rt in old_rts:
+            self._delete_orphaned_rt(rt)
+
+    @PrintErrors
+    def list_rt(self):
+        for target in self._ri.get_route_target_refs():
+           if target['attr'].import_export:
+               import_export = target['attr'].import_export
+           else:
+               import_export = 'import-export'
+           print import_export, ': ' , target['to'][0]
+
+def main():
+   
+    parser = argparse.ArgumentParser(description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    
+    parser.add_argument("network", nargs='?', default=None,
+                        help="Name of the virtual network")
+
+    parser.add_argument("--add", action='store_const', const='add', dest='action',
+                        help="Add route targets")
+    parser.add_argument("--del", action='store_const', const='del', dest='action',
+                        help="Delete route targets")
+    parser.add_argument("--list", action='store_const', const='list', dest='action',
+                        help="List route targets")
+    parser.add_argument("--set", action='store_const', const='set', dest='action',
+                        help="Set route targets")
+
+    parser.add_argument("--imports", nargs='*',
+                          help="Space separated list of route targets to import")
+    parser.add_argument("--exports", nargs='*',
+                          help="Space separated list of route target to export")
+    parser.add_argument("--targets", nargs='*',
+                          help="Space separated list of route target to import and export")
+
+
+    parser.add_argument("--api_server_ip", default='127.0.0.1',
+                        help="IP address of api server")
+    parser.add_argument("--api_server_port", default='8082',
+                        help="Port of api server")
+    parser.add_argument("--admin_user", default='admin',
+                        help="Name of keystone admin user")
+    parser.add_argument("--admin_password", default='labo',
+                        help="Password of keystone admin user")
+    parser.add_argument("--admin_tenant_name", default='admin',
+                        help="Tenamt name for keystone admin user")
+    parser.add_argument("--tenant_name",
+                        help="Tenamt name for customer network")
+    
+    args = parser.parse_args()
+    vnc_api = VncApi(args.admin_user, args.admin_password,
+                     args.admin_tenant_name, args.api_server_ip,
+                     args.api_server_port, '/')
+
+    rts_dict = {}
+    for rt in args.imports or []:
+        rts_dict['target:' + rt] = 'import'
+    for rt in args.exports or []:
+        rts_dict['target:' + rt] = 'export'
+    for rt in args.targets or []:
+        rts_dict['target:' + rt] = None
+
+    if not args.network:
+        parser.print_help()
+        return
+
+    rt_mgr = RouteTargetManager(vnc_api, args.tenant_name, args.network)
+    if args.action == 'add':
+        rt_mgr.add_rt(rts_dict)
+    elif args.action == 'del':
+        rt_mgr.del_rt(rts_dict)
+    elif args.action == 'set':
+        rt_mgr.set_rt(rts_dict)
+    elif args.action == 'list':
+        rt_mgr.list_rt()
+    else:
+        parser.print_help()
+ 
+if __name__ == '__main__':
+    main()
+
+
