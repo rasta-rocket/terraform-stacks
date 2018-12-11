@@ -11,6 +11,7 @@
         - oping
         - tmux
         - python3
+        - iperf3
 
 - name: "Setup backend"
   hosts: backend
@@ -30,6 +31,8 @@
         - "noping 8.8.8.8"
         - "noping {{ bastion.stdout }}"
         - "noping {{ backend.stdout }}"
+        - "iperf3 -s -p 8000"
+        - "iperf3 -c {{ bastion.stdout }} -p 7000 -t 0"
 
 - name: "Setup bastion"
   hosts: bastion
@@ -47,3 +50,5 @@
         - "watch -n 2 curl {{ vip.stdout }}"
         - "noping 8.8.8.8"
         - "noping {{ backend.stdout }}"
+        - "iperf3 -s -p 7000"
+        - "iperf3 -c {{ backend.stdout }} -p 8000 -t 0"

@@ -5,7 +5,7 @@ module "backend" {
   flavor_name          = "${var.flavor_name}"
   key_pair             = "${var.key_pair}"
   availability_zone    = "${var.backend_availability_zone}"
-  security_groups_list = "${list(module.security_group_ssh_icmp.secgroup_name, module.security_group_http.secgroup_name)}"
+  security_groups_list = "${list(module.security_group_ssh_icmp.secgroup_name, module.security_group_http.secgroup_name, openstack_compute_secgroup_v2.security_group_tcp_test.name)}"
   ansible_group        = "${var.backend_ansible_group}"
   network_name         = "${var.backend_net}"
   cidr                 = "${var.backend_cidr}"
@@ -18,7 +18,7 @@ module "bastion" {
   image_name           = "${var.image_name}"
   flavor_name          = "${var.flavor_name}"
   key_pair             = "${var.key_pair}"
-  security_groups_list = "${list(module.security_group_ssh_icmp.secgroup_name, module.security_group_http.secgroup_name)}"
+  security_groups_list = "${list(module.security_group_ssh_icmp.secgroup_name, module.security_group_http.secgroup_name, openstack_compute_secgroup_v2.security_group_tcp_test.name)}"
   ansible_group        = "${var.bastion_ansible_group}"
   network_name         = "${var.bastion_net}"
   cidr                 = "${var.bastion_cidr}"
@@ -57,4 +57,23 @@ module "security_group_ssh_icmp" {
 module "security_group_http" {
   source        = "../../openstack/base/security_group_http/v1"
   secgroup_name = "${var.security_group_http_name}"
+}
+
+resource "openstack_compute_secgroup_v2" "security_group_tcp_test" {
+  name        = "${var.security_group_tcp_test_name}"
+  description = "Allow traffic on port 8000 and 7000 (TCP test)"
+
+  rule {
+    from_port   = "8000"
+    to_port     = "8000"
+    ip_protocol = "tcp"
+    cidr        = "0.0.0.0/0"
+  }
+
+  rule {
+    from_port   = "7000"
+    to_port     = "7000"
+    ip_protocol = "tcp"
+    cidr        = "0.0.0.0/0"
+  }
 }
