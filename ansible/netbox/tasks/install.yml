@@ -1,0 +1,17 @@
+- name: "Install : Update APT repositories cache"
+  apt:
+    update_cache: yes
+
+- name: "Install : Install APT packages"
+  apt:
+    name: "{{ item }}"
+  with_items: "{{ netbox.install.apt }}"
+
+- name: "Install : Git clone the repo"
+  git:
+    repo: "{{ netbox.install.git.netbox.repo }}"
+    dest: "{{ netbox.install.git.netbox.dest }}"
+    version: "{{ netbox.install.git.netbox.version }}"
+
+- name: "Install : Pip install requirements"
+  shell: pip3 install -r "{{ netbox.install.pip.netbox.requirements }}"
