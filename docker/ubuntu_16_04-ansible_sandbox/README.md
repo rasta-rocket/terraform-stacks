@@ -34,6 +34,9 @@ $ make provision
 # Do it as many time as you want, until your role is working as expected
 $ make configure
 
+# Optionally you could connect to the container to check if all is ok
+$ make connect
+
 # Destroy the container
 $ make teardown
 ```

@@ -18,4 +18,7 @@ configure:
 			 -e ansible_ssh_pass=""\
 			 playbook.yml
 
+connect:
+	ssh root@$$(docker inspect ubuntu_16_04-ansible_sandbox | jq -r '.[0].NetworkSettings.IPAddress')
+
 test: provision configure teardown
