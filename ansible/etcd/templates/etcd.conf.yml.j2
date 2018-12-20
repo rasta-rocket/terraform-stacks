@@ -1,0 +1,70 @@
+name: '{{ etcd.configure.configuration.name }}'
+data-dir: '{{ etcd.configure.configuration.data_dir }}/data'
+wal-dir: '{{ etcd.configure.configuration.data_dir }}/wal'
+
+snapshot-count: '{{ etcd.configure.configuration.snapshot_count }}'
+heartbeat-interval: '{{ etcd.configure.configuration.heartbeat_interval }}'
+election-timeout: '{{ etcd.configure.configuration.election_timeout }}'
+quota-backend-bytes: '{{ etcd.configure.configuration.quota_backend_bytes }}'
+max-snapshots: '{{ etcd.configure.configuration.max_snapshots }}'
+max-wals: '{{ etcd.configure.configuration.max_wals }}'
+
+listen-peer-urls: '{{ etcd.configure.configuration.listen_peer_urls }}'
+listen-client-urls: '{{ etcd.configure.configuration.listen_client_urls }}'
+
+advertise-client-urls: '{{ etcd.configure.configuration.advertise_client_urls }}'
+
+#initial-advertise-peer-urls: '{{ etcd.configure.configuration.initial_advertise_peer_urls }}'
+initial-cluster: '{{ etcd.configure.configuration.initial_cluster }}'
+initial-cluster-token: '{{ etcd.configure.configuration.initial_cluster_token }}'
+initial-cluster-state: '{{ etcd.configure.configuration.initial_cluster_state }}'
+
+# Reject reconfiguration requests that would cause quorum loss.
+strict-reconfig-check: false
+# Accept etcd V2 client requests
+enable-v2: true
+# Enable runtime profiling data via HTTP server
+enable-pprof: true
+proxy: 'off'
+
+#client-transport-security:
+#  # Path to the client server TLS cert file.
+#  cert-file:
+#
+#  # Path to the client server TLS key file.
+#  key-file:
+#
+#  # Enable client cert authentication.
+#  client-cert-auth: false
+#
+#  # Path to the client server TLS trusted CA cert file.
+#  trusted-ca-file:
+#
+#  # Client TLS using generated certificates
+#  auto-tls: false
+#
+#peer-transport-security:
+#  # Path to the peer server TLS cert file.
+#  cert-file:
+#
+#  # Path to the peer server TLS key file.
+#  key-file:
+#
+#  # Enable peer client cert authentication.
+#  client-cert-auth: false
+#
+#  # Path to the peer server TLS trusted CA cert file.
+#  trusted-ca-file:
+#
+#  # Peer TLS using generated certificates.
+#  auto-tls: false
+
+# Enable debug-level logging for etcd.
+debug: false
+logger: zap
+# Specify 'stdout' or 'stderr' to skip journald logging even when running under systemd.
+log-outputs: [stderr]
+# Force to create a new one member cluster.
+force-new-cluster: false
+auto-compaction-mode: periodic
+auto-compaction-retention: "1"

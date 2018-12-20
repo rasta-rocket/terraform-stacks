@@ -1,0 +1,7 @@
+- name: "Service : upload systemd unit file"
+  template:
+    src: "{{ etcd.service.template.src }}"
+    dest: "{{ etcd.service.template.dest }}"
+    owner: "{{ etcd.service.template.owner }}"
+    group: "{{ etcd.service.template.group }}"
+    mode: "{{ etcd.service.template.mode }}"

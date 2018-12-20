@@ -1,0 +1,7 @@
+- name: "Install : Install binary"
+  unarchive:
+    src: "{{ etcd.install.unarchive.src }}"
+    remote_src: "true"
+    dest: "{{ etcd.install.unarchive.path }}/"
+    mode: "{{ etcd.install.unarchive.mode }}"
+    group: "{{ etcd.install.unarchive.group }}"

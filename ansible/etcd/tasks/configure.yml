@@ -1,0 +1,9 @@
+- file:
+    path: "{{ etcd.configure.directory }}"
+    state: "directory"
+
+- template:
+    src: "{{ etcd.configure.template.src }}"
+    dest: "{{ etcd.configure.directory }}/{{ etcd.configure.template.dest }}"
+    mode: "{{ etcd.configure.template.mode }}"
+    group: "{{ etcd.configure.template.group }}"
