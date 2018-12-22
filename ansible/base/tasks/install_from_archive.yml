@@ -1,0 +1,25 @@
+- name: "Install from archive : Create tmp folder"
+  tempfile:
+    state: "directory"
+    prefix: "{{ archive.name }}-"
+  register: src_archive
+
+- name: "Install from archive : Unarchive binary"
+  unarchive:
+    src: "{{ archive.url }}"
+    dest: "{{ src_archive.path }}/"
+    remote_src: true
+    mode: "0600"
+
+- name: "Install from archive : Copy binary in bin location"
+  copy:
+    src: "{{ src_archive.path }}/{{ archive.to_extract }}"
+    dest: "{{ binary_path }}/{{ archive.name }}"
+    mode: "{{ archive.mode }}"
+    group: "{{ archive.group }}"
+    remote_src: true
+
+- name: "Install from archive : Copy binary in bin location"
+  file:
+    path: "{{ src_archive.path }}"
+    state: "absent"

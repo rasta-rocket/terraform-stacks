@@ -1,0 +1,16 @@
+#- include_vars: tools.yml
+
+- name: "Install : Update APT repositories cache"
+  apt:
+    update_cache: yes
+
+- name: "Install : Install from APT"
+  apt:
+    name: "{{ base.install.from_apt }}"
+
+- name: "Install : Include install_from_archive.yml"
+  include_tasks: install_from_archive.yml
+  vars:
+    archive: "{{ item }}"
+    binary_path: "{{ base.install.default_binary_path }}"
+  with_items: "{{ base.install.from_archive }}"

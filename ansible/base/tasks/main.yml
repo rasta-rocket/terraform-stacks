@@ -1,14 +1,17 @@
-- name: "Setup tools"
-  include_tasks: tools.yml
-
-- name: "Manage system groups"
+- name: "Main : Include groups.yml"
   include_tasks: groups.yml
 
-- name: "Manage system users"
+- name: "Main : Include install.yml"
+  include_tasks: install.yml
+
+- name: "Main : Include users.yml"
   include_tasks: users.yml
 
-- name: "Manage users SSH keys"
+- name: "Main : Include ssh_keys.yml"
   include_tasks: ssh_keys.yml
 
-- name: "Setup users config"
+- name: "Main : Inlcude system_config.yml"
+  include_tasks: system_config.yml
+
+- name: "Main : Include user_config.yml"
   include_tasks: user_config.yml

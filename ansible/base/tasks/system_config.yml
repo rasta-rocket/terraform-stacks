@@ -1,0 +1,6 @@
+- name: "System config : Enable completions script"
+  copy:
+    src: "{{ item.script }}"
+    dest: "/etc/bash_completion.d/"
+    remote_src: true
+  with_items: "{{ base.system_config.completions }}"
