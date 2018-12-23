@@ -1,11 +1,18 @@
 etcd:
   install:
-    unarchive:
-      name: etcd
-      src: https://github.com/etcd-io/etcd/releases/download/v3.2.24/etcd-v3.2.24-linux-amd64.tar.gz
-      path: /usr/local/bin
-      mode: "0750"
-      group: service
+    from_archive:
+      - name: etcd
+        url: https://github.com/etcd-io/etcd/releases/download/v3.2.24/etcd-v3.2.24-linux-amd64.tar.gz
+        to_extract: "etcd-v3.2.24-linux-amd64/etcd"
+        path: /usr/local/bin
+        mode: "0750"
+        group: service
+      - name: etcdctl
+        url: https://github.com/etcd-io/etcd/releases/download/v3.2.24/etcd-v3.2.24-linux-amd64.tar.gz
+        to_extract: "etcd-v3.2.24-linux-amd64/etcdctl"
+        path: /usr/local/bin
+        mode: "0750"
+        group: service
   configure:
     directory: /etc/etcd
     template:
