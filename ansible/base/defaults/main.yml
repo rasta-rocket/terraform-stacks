@@ -1,0 +1,34 @@
+base:
+  install:
+    default_binary_path: /usr/local/bin
+    from_apt:
+      - bash-completion
+      - tar
+      - unzip
+      - htop
+      - tmux
+      - curl
+      - vim
+      - git
+      - tig
+      - silversearcher-ag
+      - oping
+      - jq
+      - xmlstarlet
+      - tree
+    from_archive:
+      - name: bat
+        to_extract: bat-v0.9.0-x86_64-unknown-linux-gnu/bat
+        url: https://github.com/sharkdp/bat/releases/download/v0.9.0/bat-v0.9.0-x86_64-unknown-linux-gnu.tar.gz
+        mode: "0755"
+        group: infra
+      - name: lnav
+        to_extract: lnav-0.8.4/lnav
+        url: https://github.com/tstack/lnav/releases/download/v0.8.4/lnav-0.8.4-linux-64bit.zip
+        mode: "0755"
+        group: infra
+
+  system_config:
+    completions:
+      - name: systemctl
+        script: /usr/share/bash-completion/completions/systemctl
