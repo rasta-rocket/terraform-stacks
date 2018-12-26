@@ -2,7 +2,9 @@
 The goal here is to be able to test in a more easy-way our roles and playbooks.  
 So here an SSH environment is available in the form of a Docker container in order to run your Ansible stuff.  
 Thanks to Docker container, you could test easily on your machine and repeat Ansible runs as many time as you want and also provision very quickly new SSH environment.  
-Note that your Ansible roles should be adapted for an _Ubuntu 16.04_. 
+Note that your Ansible roles should be adapted for an _Ubuntu 16.04_.
+
+__New Features__ : Note also that _Systemd_ is enabled in this sandbox environment.
 
 ## Requirements
 * Ansible
