@@ -1,4 +1,6 @@
 base:
+  hostname:
+    domain: "infra.corp.net"
   install:
     default_binary_path: /usr/local/bin
     from_apt:

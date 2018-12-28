@@ -1,0 +1,6 @@
+- name: "Hostname : Set domain name"
+  replace:
+    path: "/etc/hosts"
+    regexp: "{{ ansible_domain }}"
+    replace: "{{ base.hostname.domain }}"
+  ignore_errors: true
