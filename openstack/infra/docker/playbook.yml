@@ -1,0 +1,8 @@
+- name: "Setup docker"
+  hosts: docker
+  become: yes
+  tasks:
+  - include_role:
+      name: "base"
+  - include_role:
+      name: "docker"
