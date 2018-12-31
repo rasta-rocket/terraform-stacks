@@ -1,0 +1,7 @@
+- name: "Layout : create etcd layout"
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.type }}"
+    owner: "{{ etcd.user.name }}"
+    group: "{{ etcd.group.name }}"
+  with_items: "{{ etcd.layout }}"

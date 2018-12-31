@@ -1,11 +1,7 @@
-- name: "Configure : create etcd configuration directory"
-  file:
-    path: "{{ etcd.configure.directory }}"
-    state: "directory"
-
 - name: "Configure : create/update etcd configuration file"
   template:
     src: "{{ etcd.configure.template.src }}"
     dest: "{{ etcd.configure.directory }}/{{ etcd.configure.template.dest }}"
     mode: "{{ etcd.configure.template.mode }}"
-    group: "{{ etcd.configure.template.group }}"
+    owner: "{{ etcd.user.name }}"
+    group: "{{ etcd.group.name }}"

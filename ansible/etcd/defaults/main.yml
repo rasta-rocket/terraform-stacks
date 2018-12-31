@@ -1,4 +1,14 @@
 etcd:
+  group:
+    name: etcd
+    gid: 1005
+  user:
+    name: etcd
+    group: etcd
+    groups:
+    uid: 1102
+    password: $1$95xg4uyi$3qKrcAlKlmUEggOwTkXCo0
+    comment: "Etcd Daemon"
   install:
     from_archive:
       - name: etcd
@@ -6,20 +16,26 @@ etcd:
         to_extract: "etcd-v3.2.24-linux-amd64/etcd"
         path: /usr/local/bin
         mode: "0750"
-        group: service
+        group: etcd
       - name: etcdctl
         url: https://github.com/etcd-io/etcd/releases/download/v3.2.24/etcd-v3.2.24-linux-amd64.tar.gz
         to_extract: "etcd-v3.2.24-linux-amd64/etcdctl"
         path: /usr/local/bin
         mode: "0750"
-        group: service
+        group: infra
+  layout:
+    - path: /etc/etcd
+      type: directory
+    - path: /var/lib/etcd
+      type: directory
+    - path: /var/log/etcd
+      type: directory
   configure:
     directory: /etc/etcd
     template:
       dest: etcd.conf.yml
       src: etcd.conf.yml.j2
       mode: "0640"
-      group: service
     configuration:
       name: "{{ ansible_hostname }}"
       data_dir: /var/lib/etcd
@@ -37,20 +53,10 @@ etcd:
       initial_cluster_token: "etcd-cluster"
       initial_cluster:
       debug: "false"
-  user:
-    name: etcd
-    group: service
-    groups:
-    uid: 1102
-    password: $1$95xg4uyi$3qKrcAlKlmUEggOwTkXCo0
-    comment: "Etcd"
-    state: present
   service:
     template:
       src: "etcd.service.j2"
       dest: "/etc/systemd/system/etcd.service"
-      owner: root
-      group: service
       mode: "0644"
     configuration:
-      execStart: "/usr/local/bin/etcd --config-file etcd.conf.yml"
+      execStart: "/usr/local/bin/etcd"

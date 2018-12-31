@@ -1,4 +1,4 @@
-- name: "Create Etcd user"
+- name: "User : create etcd user"
   user:
     name: "{{ etcd.user.name }}"
     group: "{{ etcd.user.group }}"
@@ -6,4 +6,3 @@
     uid: "{{ etcd.user.uid }}"
     password: "{{ etcd.user.password }}"
     shell: "/bin/bash"
-    state: "{{ etcd.user.state }}"

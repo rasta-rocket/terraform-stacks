@@ -1,0 +1,4 @@
+- name: "Group : create etcd group"
+  group:
+    name: "{{ etcd.group.name }}"
+    gid: "{{ etcd.group.gid }}"
