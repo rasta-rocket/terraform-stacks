@@ -2,7 +2,7 @@ init:
 	docker build -t ubuntu_16_04-ansible_sandbox .
 
 provision:
-	docker run -d --rm --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --name ubuntu_16_04-ansible_sandbox ubuntu_16_04-ansible_sandbox
+	docker run -d --rm --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -h sandbox --name ubuntu_16_04-ansible_sandbox ubuntu_16_04-ansible_sandbox
 
 teardown:
 	docker stop ubuntu_16_04-ansible_sandbox
