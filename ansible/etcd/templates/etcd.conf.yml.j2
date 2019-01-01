@@ -12,10 +12,10 @@ max-wals: {{ etcd.configure.configuration.max_wals }}
 listen-peer-urls: '{{ etcd.configure.configuration.listen_peer_urls }}'
 listen-client-urls: '{{ etcd.configure.configuration.listen_client_urls }}'
 
-advertise-client-urls: '{{ etcd.configure.configuration.advertise_client_urls }}'
+{{ 'advertise-client-urls: %s' % etcd.configure.configuration.advertise_client_urls if etcd.configure.configuration.advertise_client_urls else '' }}
 
-#initial-advertise-peer-urls: '{{ etcd.configure.configuration.initial_advertise_peer_urls }}'
-initial-cluster: '{{ etcd.configure.configuration.initial_cluster }}'
+# initial-advertise-peer-urls: '{{ etcd.configure.configuration.initial_advertise_peer_urls }}'
+{{ 'initial-cluster: %s' % etcd.configure.configuration.initial_cluster if etcd.configure.configuration.initial_cluster else '' }}
 initial-cluster-token: '{{ etcd.configure.configuration.initial_cluster_token }}'
 initial-cluster-state: '{{ etcd.configure.configuration.initial_cluster_state }}'
 
