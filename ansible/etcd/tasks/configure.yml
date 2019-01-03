@@ -5,3 +5,4 @@
     mode: "{{ etcd.configure.template.mode }}"
     owner: "{{ etcd.user.name }}"
     group: "{{ etcd.group.name }}"
+  notify: "restart etcd"

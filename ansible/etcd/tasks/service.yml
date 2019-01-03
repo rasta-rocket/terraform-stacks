@@ -3,4 +3,6 @@
     src: "{{ etcd.service.template.src }}"
     dest: "{{ etcd.service.template.dest }}"
     mode: "{{ etcd.service.template.mode }}"
-  notify: "reload systemd"
+  notify:
+    - "reload systemd"
+    - "restart etcd"
