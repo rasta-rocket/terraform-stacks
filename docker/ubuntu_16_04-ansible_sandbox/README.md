@@ -26,11 +26,11 @@ $ make test
 ## Fine-grained action
 You could also perform more granular action, which means split the steps (provision, configure, teardown) in order to troubleshoot deeper your work.
 ```
-# Check that you are able to reach the container
-$ make check
-
 # Provision the SSH-enabled container
 $ make provision
+
+# Check that you are able to reach the container
+$ make check
 
 # Run the ansible-playbook against the container
 # Do it as many time as you want, until your role is working as expected
