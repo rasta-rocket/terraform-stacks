@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+  node:
+    image: ubuntu_16_04-ansible_sandbox
+    privileged: true
+    networks:
+      - ansible_sandbox_net
+    volumes:
+      - type: bind
+        source: /sys/fs/cgroup
+        target: /sys/fs/cgroup
+        read_only: true
+networks:
+  ansible_sandbox_net:
+    driver: bridge
