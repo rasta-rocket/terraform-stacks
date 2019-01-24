@@ -1,4 +1,4 @@
-- name: "Install : Install binary"
+- name: "install : install binary"
   unarchive:
     src: "{{ consul.install.binary.src }}"
     remote_src: "true"

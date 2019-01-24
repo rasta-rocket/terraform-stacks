@@ -1,4 +1,4 @@
-- name: "User : Create Consul user"
+- name: "user : create consul user"
   user:
     name: "{{ consul.user.name }}"
     group: "{{ consul.user.group }}"
