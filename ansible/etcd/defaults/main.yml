@@ -47,11 +47,6 @@ etcd:
       quota_backend_bytes: 0
       listen_peer_urls: "http://0.0.0.0:2380"
       listen_client_urls: "http://0.0.0.0:2379"
-      advertise_client_urls:
-      initial_advertise_peer_urls: []
-      initial_cluster_state: "new"
-      initial_cluster_token: "etcd-cluster"
-      initial_cluster:
       debug: "false"
   service:
     template:
