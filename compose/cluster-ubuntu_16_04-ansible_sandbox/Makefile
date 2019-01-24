@@ -1,7 +1,7 @@
-SCALE=3
+ANSIBLE_SANDBOX_SCALE=3
 
 provision:
-	docker-compose up -d --scale node=$(SCALE)
+	docker-compose up -d --scale node=$(ANSIBLE_SANDBOX_SCALE)
 
 teardown:
 	docker-compose down
