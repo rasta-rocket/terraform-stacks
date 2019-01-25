@@ -1,22 +1,24 @@
+ANSIBLE_SANDBOX_INVENTORY=/tmp/ansible_sandbox_hosts
+
 init:
 	docker build -t ubuntu_16_04-ansible_sandbox .
 
 provision:
-	docker run -d --rm --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -h sandbox --name ubuntu_16_04-ansible_sandbox ubuntu_16_04-ansible_sandbox
+	docker run -d --rm --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --name ubuntu_16_04-ansible_sandbox ubuntu_16_04-ansible_sandbox; \
+	echo "[$$(grep "hosts" playbook.yml | awk '{print $$3}')]" > $(ANSIBLE_SANDBOX_INVENTORY); \
+	for id in $$(docker ps -f "Name=ubuntu_16_04-ansible_sandbox" -q); do printf "$$id ansible_host=$$(docker inspect $$id | jq -r '.[0].NetworkSettings.IPAddress') ansible_user=root ansible_ssh_pass="" \n"; done >> $(ANSIBLE_SANDBOX_INVENTORY)
 
 teardown:
+	rm $(ANSIBLE_SANDBOX_INVENTORY); \
 	docker stop ubuntu_16_04-ansible_sandbox
 
 check:
 	. ../../ansible/ansible.rc; \
-	ansible -i $$(docker inspect ubuntu_16_04-ansible_sandbox | jq -r '.[0].NetworkSettings.IPAddress'), -e ansible_user=root -e ansible_ssh_pass="" -m ping all
+	ansible -i $(ANSIBLE_SANDBOX_INVENTORY) -m ping all
 
 configure:
 	. ../../ansible/ansible.rc; \
-	ansible-playbook -i $$(docker inspect ubuntu_16_04-ansible_sandbox | jq -r '.[0].NetworkSettings.IPAddress'),\
-		         -e ansible_user=root\
-			 -e ansible_ssh_pass=""\
-			 playbook.yml
+	ansible-playbook -i $(ANSIBLE_SANDBOX_INVENTORY) playbook.yml
 
 connect:
 	ssh root@$$(docker inspect ubuntu_16_04-ansible_sandbox | jq -r '.[0].NetworkSettings.IPAddress')
