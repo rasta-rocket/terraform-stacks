@@ -1,5 +1,5 @@
 ANSIBLE_SANDBOX_SCALE=3
-ANSIBLE_SANDBOX_INVENTORY=/tmp/ansible_sandbox_hosts
+ANSIBLE_SANDBOX_INVENTORY=/tmp/ansible_cluster_sandbox_hosts
 
 provision:
 	docker-compose up -d --scale node=$(ANSIBLE_SANDBOX_SCALE); \
