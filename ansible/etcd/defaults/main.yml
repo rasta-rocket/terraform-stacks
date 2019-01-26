@@ -54,4 +54,4 @@ etcd:
       dest: "/etc/systemd/system/etcd.service"
       mode: "0644"
     configuration:
-            execStart: "/usr/local/bin/etcd --config-file /etc/etcd/etcd.conf.yml"
+      execStart: "/usr/local/bin/etcd --config-file /etc/etcd/etcd.conf.yml"
