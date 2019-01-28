@@ -1,23 +1,38 @@
 consul:
+  group:
+    name: consul
+    gid: 1006
+  user:
+    name: consul
+    group: consul
+    groups:
+    uid: 1101
+    comment: "Consul Daemon"
   install:
     binary:
       name: consul
-      src: https://releases.hashicorp.com/consul/1.2.3/consul_1.2.3_linux_amd64.zip
+      src: https://releases.hashicorp.com/consul/1.4.1/consul_1.4.1_linux_amd64.zip
       path: /usr/local/bin
       mode: "0750"
-      group: infra
+      group: consul
+  layout:
+    - path: /etc/consul
+      type: directory
+    - path: /var/lib/consul
+      type: directory
+    - path: /var/log/consul
+      type: directory
   configure:
-  user:
-    name: consul
-    group: service
-    groups:
-    uid: 1101
-    comment: Consul
-    state: present
+    directory: /etc/consul
+    template:
+      dest: consul.json
+      src: consul.json.j2
+      mode: "0640"
+    configuration:
+      data_dir: /var/lib/consul
   service:    
     src: consul.service.j2
     dest: /etc/systemd/system/consul.service
-    owner: root
-    group: service
     mode: "0644"
-    execStart: /usr/local/bin/consul
+    configuration:
+      execStart: "/usr/local/bin/consul agent -config-file=consul.json"

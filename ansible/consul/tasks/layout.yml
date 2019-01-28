@@ -1,0 +1,7 @@
+- name: "layout : create consul layout"
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.type }}"
+    owner: "{{ consul.user.name }}"
+    group: "{{ consul.group.name }}"
+  with_items: "{{ consul.layout }}"

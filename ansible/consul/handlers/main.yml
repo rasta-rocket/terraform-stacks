@@ -1,0 +1,10 @@
+- name: "main : reload systemd configuration"
+  systemd:
+    daemon_reload: yes
+  listen: "reload systemd"
+
+- name: "main : restart consul"
+  systemd:
+    name: etcd
+    state: restarted
+  listen: "restart consul"

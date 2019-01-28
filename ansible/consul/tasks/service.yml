@@ -2,6 +2,7 @@
   template:
     src: "{{ consul.service.src }}"
     dest: "{{ consul.service.dest }}"
-    owner: "{{ consul.service.owner }}"
-    group: "{{ consul.service.group }}"
     mode: "{{ consul.service.mode }}"
+  notify:
+    - "reload systemd"
+    - "restart consul"

@@ -1,0 +1,4 @@
+- name: "group : create consul group"
+  group:
+    name: "{{ consul.group.name }}"
+    gid: "{{ consul.group.gid }}"

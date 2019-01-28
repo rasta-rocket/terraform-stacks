@@ -1,12 +1,12 @@
 [Unit]
-Description=Consul server
+Description=Consul Daemon
 Documentation=https://www.consul.io/
 After=network.target
 
 [Service]
 User=consul
 Type=notify
-ExecStart={{ consul.service.execStart }}
+ExecStart={{ consul.service.configuration.execStart }}
 Restart=always
 RestartSec=10s
 LimitNOFILE=40000

@@ -1,0 +1,8 @@
+- name: "configure : create/update consul configuration file"
+  template:
+    src: "{{ consul.configure.template.src }}"
+    dest: "{{ consul.configure.directory }}/{{ consul.configure.template.dest }}"
+    mode: "{{ consul.configure.template.mode }}"
+    owner: "{{ consul.user.name }}"
+    group: "{{ consul.group.name }}"
+  notify: "restart consul"
