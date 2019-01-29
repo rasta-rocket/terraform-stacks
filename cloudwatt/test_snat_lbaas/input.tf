@@ -35,6 +35,10 @@ variable "security_group_http_name" {
   default = "security_group_http"
 }
 
+variable "security_group_tcp_test_name" {
+  default = "security_group_tcp_test"
+}
+
 # Network
 variable "external_net" {
   default = "public"
