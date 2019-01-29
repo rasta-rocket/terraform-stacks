@@ -13,7 +13,7 @@
         - python3
         - iperf3
 
-- name: "Setup backend"
+- name: "Setup backend (1)"
   hosts: backend
   tasks:
     - shell: "terraform output -json | jq -r '.bastion_ip.value[0]'"
@@ -32,9 +32,8 @@
         - "noping {{ bastion.stdout }}"
         - "noping {{ backend.stdout }}"
         - "iperf3 -s -p 8000"
-        - "iperf3 -c {{ bastion.stdout }} -p 7000 -t 0"
 
-- name: "Setup bastion"
+- name: "Setup bastion (1)"
   hosts: bastion
   tasks:
     - shell: "terraform output -json | jq -r '.vip_address.value'"
@@ -51,4 +50,23 @@
         - "noping 8.8.8.8"
         - "noping {{ backend.stdout }}"
         - "iperf3 -s -p 7000"
+
+- name: "Setup backend (2)"
+  hosts: backend
+  tasks:
+    - shell: "terraform output -json | jq -r '.bastion_ip.value[0]'"
+      delegate_to: 127.0.0.1
+      register: bastion
+    - shell: "tmux new-window -t setup \"{{ item }}\""
+      with_items:
+        - "iperf3 -c {{ bastion.stdout }} -p 7000 -t 0"
+
+- name: "Setup bastion (2)"
+  hosts: bastion
+  tasks:
+    - shell: "terraform output -json | jq -r '.backend_ip.value[0]'"
+      delegate_to: 127.0.0.1
+      register: backend
+    - shell: "tmux new-window -t setup \"{{ item }}\""
+      with_items:
         - "iperf3 -c {{ backend.stdout }} -p 8000 -t 0"
