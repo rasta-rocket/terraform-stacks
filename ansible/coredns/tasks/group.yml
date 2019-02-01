@@ -1,0 +1,4 @@
+- name: "group : create coredns group"
+  group:
+    name: "{{ coredns.group.name }}"
+    gid: "{{ coredns.group.gid }}"

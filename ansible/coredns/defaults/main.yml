@@ -1,0 +1,24 @@
+coredns:
+  group:
+    name: coredns
+    gid: 1005
+  user:
+    name: coredns
+    group: coredns
+    groups:
+    uid: 1102
+    comment: "CoreDNS Daemon"
+  install:
+    binary:
+      name: coredns
+      src: https://github.com/coredns/coredns/releases/download/v1.3.1/coredns_1.3.1_linux_amd64.tgz
+      path: /usr/local/bin
+      mode: "0750"
+      group: coredns
+  layout:
+    - path: /etc/coredns
+      type: directory
+    - path: /var/lib/coredns
+      type: directory
+    - path: /var/log/coredns
+      type: directory

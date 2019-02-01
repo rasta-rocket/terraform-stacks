@@ -1,0 +1,7 @@
+- name: "layout : create coredns layout"
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.type }}"
+    owner: "{{ coredns.user.name }}"
+    group: "{{ coredns.group.name }}"
+  with_items: "{{ coredns.layout }}"

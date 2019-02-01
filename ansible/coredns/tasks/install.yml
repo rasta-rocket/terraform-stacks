@@ -1,0 +1,7 @@
+- name: "install : install binary"
+  unarchive:
+    src: "{{ coredns.install.binary.src }}"
+    remote_src: "true"
+    dest: "{{ coredns.install.binary.path }}/"
+    mode: "{{ coredns.install.binary.mode }}"
+    group: "{{ coredns.install.binary.group }}"

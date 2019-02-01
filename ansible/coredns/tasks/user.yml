@@ -1,0 +1,7 @@
+- name: "user : create coredns user"
+  user:
+    name: "{{ coredns.user.name }}"
+    group: "{{ coredns.user.group }}"
+    groups: "{{ coredns.user.groups }}"
+    uid: "{{ coredns.user.uid }}"
+    shell: "/usr/sbin/nologin"

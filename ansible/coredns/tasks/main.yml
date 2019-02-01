@@ -1,0 +1,11 @@
+- name: "main : include group.yml"
+  include_tasks: group.yml
+
+- name: "main : include user.yml"
+  include_tasks: user.yml
+
+- name: "main : include install.yml"
+  include_tasks: install.yml
+
+- name: "main : include layout.yml"
+  include_tasks: layout.yml
