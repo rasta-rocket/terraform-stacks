@@ -1,4 +1,4 @@
-- name: "User : create etcd user"
+- name: "user : create etcd user"
   user:
     name: "{{ etcd.user.name }}"
     group: "{{ etcd.user.group }}"

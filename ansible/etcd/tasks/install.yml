@@ -1,4 +1,4 @@
-- name: "Install : Include role.install_from_archive"
+- name: "install : include role.install_from_archive"
   include_role:
     name: base
     tasks_from: install_from_archive

@@ -1,17 +1,17 @@
-- name: "Main : Include group.yml"
+- name: "main : include group.yml"
   include_tasks: group.yml
 
-- name: "Main : Include user.yml"
+- name: "main : include user.yml"
   include_tasks: user.yml
 
-- name: "Main : Include install.yml"
+- name: "main : include install.yml"
   include_tasks: install.yml
 
-- name: "Main :  Include layout.yml"
+- name: "main : include layout.yml"
   include_tasks: layout.yml
 
-- name: "Main : Include configure.yml"
+- name: "main : include configure.yml"
   include_tasks: configure.yml
 
-- name: "Main : Include service.yml"
+- name: "main : include service.yml"
   include_tasks: service.yml

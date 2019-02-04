@@ -1,4 +1,4 @@
-- name: "Layout : create etcd layout"
+- name: "layout : create etcd layout"
   file:
     path: "{{ item.path }}"
     state: "{{ item.type }}"
