@@ -1,10 +1,10 @@
 module "backend" {
-  source               = "../../openstack/base/cluster_az"
+  source               = "../../openstack/base/cluster_az/v2"
   instance_name        = "${var.backend_name}"
   image_name           = "${var.image_name}"
   flavor_name          = "${var.flavor_name}"
   key_pair             = "${var.key_pair}"
-  availability_zone    = "${var.backend_availability_zone}"
+  compute_nodes        = "${var.compute_nodes}"
   security_groups_list = "${list(module.security_group_ssh_icmp.secgroup_name, module.security_group_http.secgroup_name, openstack_compute_secgroup_v2.security_group_tcp_test.name)}"
   ansible_group        = "${var.backend_ansible_group}"
   network_name         = "${var.backend_net}"

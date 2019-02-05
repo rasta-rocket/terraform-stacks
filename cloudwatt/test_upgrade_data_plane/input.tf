@@ -5,7 +5,9 @@ variable "flavor_name" {}
 variable "key_pair" {}
 
 # Backend
-variable "backend_availability_zone" {}
+variable "compute_nodes" {
+  type = "list"
+}
 
 variable "backend_name" {
   default = "backend_server"
