@@ -8,3 +8,4 @@ hosts
 *.log
 docker/ubuntu_16_04-ansible_sandbox/playbook.yml
 compose/cluster-ubuntu_16_04-ansible_sandbox/playbook.yml
+cloud_stack.rc
