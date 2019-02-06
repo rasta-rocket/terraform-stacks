@@ -54,19 +54,11 @@
 - name: "Setup backend (2)"
   hosts: backend
   tasks:
-    - shell: "terraform output -json | jq -r '.bastion_ip.value[0]'"
-      delegate_to: 127.0.0.1
-      register: bastion
-    - shell: "tmux new-window -t setup \"{{ item }}\""
-      with_items:
-        - "iperf3 -c {{ bastion.stdout }} -p 7000 -t 0"
+    - shell: "tmux new-window -t setup \"iperf3 -c {{ hostvars[item].ansible_default_ipv4.address }} -p 7000 -t 0\""
+      with_items: "{{ groups['bastion'] }}"
 
 - name: "Setup bastion (2)"
   hosts: bastion
   tasks:
-    - shell: "terraform output -json | jq -r '.backend_ip.value[0]'"
-      delegate_to: 127.0.0.1
-      register: backend
-    - shell: "tmux new-window -t setup \"{{ item }}\""
-      with_items:
-        - "iperf3 -c {{ backend.stdout }} -p 8000 -t 0"
+    - shell: "tmux new-window -t setup \"iperf3 -c {{ hostvars[item].ansible_default_ipv4.address }} -p 8000 -t 0\""
+      with_items: "{{ groups['backend'] }}"
