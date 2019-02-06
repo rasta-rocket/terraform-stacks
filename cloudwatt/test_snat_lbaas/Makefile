@@ -2,6 +2,7 @@
 # export SSH_USER=user
 # export SSH_KEY=/home/user/.ssh/ssh_key
 # export INVENTORY=hosts
+# export COLORTERM=gnome-terminal
 
 init:
 	terraform init
