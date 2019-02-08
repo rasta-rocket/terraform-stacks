@@ -1,4 +1,4 @@
-- name: "Configure : create/update etcd configuration file"
+- name: "configure : create/update etcd configuration file"
   template:
     src: "{{ etcd.configure.template.src }}"
     dest: "{{ etcd.configure.directory }}/{{ etcd.configure.template.dest }}"
