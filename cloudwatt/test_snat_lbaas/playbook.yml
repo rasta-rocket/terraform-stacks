@@ -28,6 +28,7 @@
     - shell: "tmux new-window -t setup \"{{ item }}\""
       with_items:
         - "sudo python3 -m http.server 80"
+        - "sudo python3 -m http.server 443"
         - "noping 8.8.8.8"
         - "noping {{ bastion.stdout }}"
         - "noping {{ backend.stdout }}"
@@ -46,7 +47,8 @@
     - shell: "tmux new-session -d -s setup"
     - shell: "tmux new-window -t setup \"{{ item }}\""
       with_items:
-        - "watch -n 2 curl {{ vip.stdout }}"
+        - "watch -n 2 curl {{ vip.stdout }}:80"
+        - "watch -n 2 curl {{ vip.stdout }}:443"
         - "noping 8.8.8.8"
         - "noping {{ backend.stdout }}"
         - "iperf3 -s -p 7000"
