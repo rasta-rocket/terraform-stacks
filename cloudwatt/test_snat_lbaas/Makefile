@@ -4,18 +4,21 @@
 # export INVENTORY=hosts
 # export COLORTERM=gnome-terminal
 
-init:
+switch:
+	terraform workspace select $$OS_REGION_NAME
+
+init: switch
 	terraform init
 
-apply:
-	terraform apply -parallelism=1 -var-file=$$(terraform workspace show).tfvars -auto-approve
+apply: switch
+	terraform apply -parallelism=1 -var-file=$$OS_REGION_NAME.tfvars -auto-approve
 
-inventory:
+inventory: switch
 	. ./cloud_stack.rc; \
-	terraform-inventory -b $$(cat terraform.tfstate.d/$$(terraform workspace show)/terraform.tfstate | jq -r .modules[0].outputs.bastion_fip.value[0]) -u $$SSH_USER -k $$SSH_KEY -o $$INVENTORY
+	terraform-inventory -b $$(cat terraform.tfstate.d/$$OS_REGION_NAME/terraform.tfstate | jq -r .modules[0].outputs.bastion_fip.value[0]) -u $$SSH_USER -k $$SSH_KEY -o $$INVENTORY
 
-destroy:
-	terraform destroy -parallelism=1 -var-file=$$(terraform workspace show).tfvars -force
+destroy: switch
+	terraform destroy -parallelism=1 -var-file=$$OS_REGION_NAME.tfvars -force
 
 check:
 	. ./cloud_stack.rc; \
