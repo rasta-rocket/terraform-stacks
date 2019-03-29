@@ -15,8 +15,7 @@ apply: switch
 
 inventory: switch
 	. ./cloud_stack.rc; \
-	terraform-inventory -b $$(cat terraform.tfstate.d/$$OS_REGION_NAME/terraform.tfstate | jq -r .modules[0].outputs.bastion_fip.value[0]) -u $$SSH_USER -k $$SSH_KEY -o $$INVENTORY; \
-	sed -i 's/bastion_snat/bastion/g; s/backend_snat/backend/g' hosts
+	terraform-inventory -b $$(cat terraform.tfstate.d/$$OS_REGION_NAME/terraform.tfstate | jq -r .modules[0].outputs.bastion_fip.value[0]) -u $$SSH_USER -k $$SSH_KEY -o $$INVENTORY
 
 destroy: switch
 	terraform destroy -parallelism=1 -var-file=$$OS_REGION_NAME.tfvars -force
