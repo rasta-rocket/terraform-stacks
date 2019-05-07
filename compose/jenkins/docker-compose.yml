@@ -1,0 +1,23 @@
+version: '3.5'
+services:
+  master:
+    build: ../../docker/jenkins/
+    image: jenkins:cloud-stacks
+    environment:
+      CASC_JENKINS_CONFIG: /etc/jcasc/jenkins.yaml
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+    networks:
+      - jenkins_net
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+#      - jenkins_home_jcasc:/var/jenkins_home
+      - ../../jenkins/jcasc/jenkins.yaml:/etc/jcasc/jenkins.yaml
+
+#volumes:
+#  jenkins_home_jcasc:
+
+networks:
+  jenkins_net:
+    driver: bridge
