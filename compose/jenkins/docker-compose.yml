@@ -14,6 +14,7 @@ services:
     volumes:
 #      - jenkins_home_jcasc:/var/jenkins_home
       - ../../jenkins/jcasc/jenkins.yaml:/etc/jcasc/jenkins.yaml
+      - ../../jenkins/job-dsl/seed.groovy:/etc/job-dsl/seed.groovy
 
 #volumes:
 #  jenkins_home_jcasc:
