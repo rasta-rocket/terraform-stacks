@@ -1,0 +1,12 @@
+version: '3.5'
+services:
+  server:
+    image: vault
+    networks:
+    - vault_net
+    ports:
+    - 8200:8200
+
+networks:
+  vault_net:
+    driver: bridge
