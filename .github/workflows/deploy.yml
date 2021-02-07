@@ -1,0 +1,11 @@
+name: "Test deployment event"
+on:
+  - deployment
+jobs:
+  deploy:
+    name: "test deploy event"
+    runs-on: ubuntu-20.04
+    container: node:10.16-jessie
+    steps:
+      - name: "output"
+        run: echo "Start deployment"

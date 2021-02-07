@@ -1,0 +1,21 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: "ubuntu:20.04"
+    steps:
+      - run: echo "this is the build job"
+  trigger:
+    docker:
+      - image: "curlimages/curl"
+    steps:
+      - run: echo "this is the trigger"
+      - run: |
+          curl -X POST -u "rasta-rocket:$GH_PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/rasta-rocket/cloud-stacks/deployments -d '{"ref": "test_ci", "required_contexts": []}'
+
+workflows:
+  main:
+    jobs:
+      - build
+      - trigger
